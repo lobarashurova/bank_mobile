@@ -3,7 +3,7 @@ import 'package:bank_mobile/data/gen/assets.gen.dart';
 import 'package:bank_mobile/extensions/text_extensions.dart';
 import 'package:bank_mobile/extensions/theme_extensions.dart';
 import 'package:bank_mobile/extensions/widget.dart';
-import 'package:bank_mobile/presentation/auth/sms_verify/sms_verify_page.dart';
+import 'package:bank_mobile/presentation/auth/verify/verify_widget/verify_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../../app/common/widgets/common_text_filed.dart';
@@ -89,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => SmsVerifyPage()));
+                                builder: (context) => VerifyWidget()));
                       },
                     ),
                   ),

@@ -1,9 +1,8 @@
-import 'package:bank_mobile/app/common/widgets/base_app_bar.dart';
 import 'package:bank_mobile/app/common/widgets/common_text_filed.dart';
 import 'package:bank_mobile/extensions/text_extensions.dart';
 import 'package:bank_mobile/extensions/theme_extensions.dart';
 import 'package:bank_mobile/extensions/widget.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:bank_mobile/presentation/auth/sms_verify/sms_verify_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../app/common/widgets/common_button.dart';
@@ -27,8 +26,10 @@ class _VerifyWidgetState extends State<VerifyWidget> {
           Assets.icons.verify.image(height: 359, width: 410),
           "Verify your Number!".s(32).w(700).c(context.colors.display),
           16.kh,
-          "Please enter your mobile number to \n eceive verification code".s(16).w(700).c(context.colors.title),
-
+          "Please enter your mobile number to \n eceive verification code"
+              .s(16)
+              .w(700)
+              .c(context.colors.title),
           70.kh,
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 45),
@@ -37,7 +38,6 @@ class _VerifyWidgetState extends State<VerifyWidget> {
               hint: "Email",
             ),
           ),
-
           50.kh,
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 45),
@@ -47,6 +47,12 @@ class _VerifyWidgetState extends State<VerifyWidget> {
                 child: CommonButton.elevated(
                   text: "SEND",
                   backgroundColor: Colors.amber,
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SmsVerifyPage()));
+                  },
                 ),
               ),
             ),

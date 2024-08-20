@@ -3,6 +3,7 @@ import 'package:bank_mobile/data/gen/assets.gen.dart';
 import 'package:bank_mobile/extensions/text_extensions.dart';
 import 'package:bank_mobile/extensions/theme_extensions.dart';
 import 'package:bank_mobile/extensions/widget.dart';
+import 'package:bank_mobile/presentation/auth/verify/verified_widget/verified_widget.dart';
 import 'package:bank_mobile/presentation/auth/verify/widget/common_pin_put.dart';
 import 'package:flutter/material.dart';
 
@@ -37,6 +38,12 @@ class _SmsVerifyPageState extends State<SmsVerifyPage> {
               child: CommonButton.elevated(
                 text: "Verify",
                 backgroundColor: Colors.amber,
+                onPressed: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => VerifiedWidget()));
+                },
               ),
             ),
             16.kh,
