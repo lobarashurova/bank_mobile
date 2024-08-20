@@ -1,7 +1,6 @@
 import 'package:bank_mobile/extensions/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
-
 class CommonPinPut extends StatefulWidget {
   const CommonPinPut({
     super.key,
@@ -42,7 +41,7 @@ class _CommonPinPutState extends State<CommonPinPut> {
     return Center(
       child: Pinput(
         autofocus: true,
-        length: 6,
+        length: 4,
         controller: widget.pinController,
         focusNode: focusNode,
         androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsUserConsentApi,

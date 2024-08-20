@@ -3,6 +3,7 @@ import 'package:bank_mobile/data/gen/assets.gen.dart';
 import 'package:bank_mobile/extensions/text_extensions.dart';
 import 'package:bank_mobile/extensions/theme_extensions.dart';
 import 'package:bank_mobile/extensions/widget.dart';
+import 'package:bank_mobile/presentation/auth/sms_verify/sms_verify_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../../app/common/widgets/common_text_filed.dart';
@@ -34,15 +35,23 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          48.kh,
-          Assets.icons.bank.image(height: 238, width: 210),
-          "Solution Squad".s(32).w(700).c(context.colors.onPrimary),
-          16.kh,
-          Flexible(
-            child: Container(
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height * 4 / 10,
+              child: Column(
+                children: [
+                  48.kh,
+                  Assets.icons.bank.image(height: 238, width: 210),
+                  "Solution Squad".s(32).w(700).c(context.colors.onPrimary),
+                  16.kh,
+                ],
+              ),
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height / 2,
               decoration: BoxDecoration(
                   color: context.colors.onPrimary,
                   borderRadius:
@@ -52,16 +61,17 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CommonTextField(),
-                  16.kh,
                   "Email Address".s(12).w(400).c(context.colors.display),
                   8.kh,
-                  CommonTextField(),
+                  CommonTextField(
+                    textInputAction: TextInputAction.next,
+                  ),
                   16.kh,
                   "Password".s(12).w(400).c(context.colors.display),
                   8.kh,
                   CommonTextField(
                     obscureText: true,
+                    textInputAction: TextInputAction.done,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -70,20 +80,24 @@ class _LoginPageState extends State<LoginPage> {
                       32.kh,
                     ],
                   ),
-                  Flexible(
-                    child: SizedBox(
-                      height: 64,
-                      child: CommonButton.elevated(
-                        text: "Sign in",
-                        backgroundColor: Colors.amber,
-                      ),
+                  SizedBox(
+                    height: 64,
+                    child: CommonButton.elevated(
+                      text: "Sign in",
+                      backgroundColor: Colors.amber,
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SmsVerifyPage()));
+                      },
                     ),
                   ),
                 ],
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
