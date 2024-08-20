@@ -1,8 +1,6 @@
 import 'package:bank_mobile/app/injection/injecttion.dart';
 import 'package:bank_mobile/extensions/theme_extensions.dart';
-import 'package:bank_mobile/presentation/auth/register/register_page.dart';
-import 'package:bank_mobile/presentation/auth/verify/verified_widget/verified_widget.dart';
-import 'package:bank_mobile/presentation/auth/verify/verify_widget/verify_widget.dart';
+import 'package:bank_mobile/presentation/auth/start/begin_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -23,7 +21,7 @@ class MyApp extends StatelessWidget {
               backgroundColor: context.colors.scaffoldColor, elevation: 0),
           useMaterial3: false,
           scaffoldBackgroundColor: context.colors.scaffoldColor),
-      home: VerifyWidget(),
+      home: BeginPage(),
     );
   }
 }

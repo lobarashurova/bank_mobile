@@ -25,11 +25,15 @@ class $AssetsIconsGen {
   /// File path: assets/icons/google.png
   AssetGenImage get google => const AssetGenImage('assets/icons/google.png');
 
+  /// File path: assets/icons/sms_verification.png
+  AssetGenImage get smsVerification =>
+      const AssetGenImage('assets/icons/sms_verification.png');
+
   /// File path: assets/icons/uneye.svg
   SvgGenImage get uneye => const SvgGenImage('assets/icons/uneye.svg');
 
   /// List of all assets
-  List<dynamic> get values => [bank, eye, google, uneye];
+  List<dynamic> get values => [bank, eye, google, smsVerification, uneye];
 }
 
 class Assets {
