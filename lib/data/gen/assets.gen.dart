@@ -21,11 +21,14 @@ class $AssetsIconsGen {
   /// File path: assets/icons/eye.svg
   SvgGenImage get eye => const SvgGenImage('assets/icons/eye.svg');
 
+  /// File path: assets/icons/google.png
+  AssetGenImage get google => const AssetGenImage('assets/icons/google.png');
+
   /// File path: assets/icons/uneye.svg
   SvgGenImage get uneye => const SvgGenImage('assets/icons/uneye.svg');
 
   /// List of all assets
-  List<dynamic> get values => [bank, eye, uneye];
+  List<dynamic> get values => [bank, eye, google, uneye];
 }
 
 class Assets {

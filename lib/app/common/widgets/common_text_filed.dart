@@ -174,11 +174,17 @@ class _CommonTextFieldState extends State<CommonTextField> {
                     ? Padding(
                         padding:
                             EdgeInsets.symmetric(vertical: 12, horizontal: 10),
-                        child: Assets.icons.eye.svg(width: 24, height: 24))
+                        child: Assets.icons.eye.svg(
+                            width: 24,
+                            height: 24,
+                            color: context.colors.primary))
                     : Padding(
                         padding:
                             EdgeInsets.symmetric(vertical: 12, horizontal: 10),
-                        child: Assets.icons.uneye.svg(width: 24, height: 24),
+                        child: Assets.icons.uneye.svg(
+                            width: 24,
+                            height: 24,
+                            color: context.colors.primary),
                       ),
                 onTap: () {
                   setState(() => passwordVisible = !passwordVisible);

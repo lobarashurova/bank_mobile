@@ -59,7 +59,7 @@ class CommonButton extends StatelessWidget {
     Color? backgroundColor,
     Color? textColor,
     Widget? icon,
-    double radius = 50,
+    double radius = 15,
     Key? key,
     double? padding,
     bool shadow = false,
@@ -137,7 +137,7 @@ class CommonButton extends StatelessWidget {
                   child: text.w(600).s(16).c(color).copyWith(
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(color: textColor ?? StaticColors.white)),
+                      style: TextStyle(color: textColor ?? StaticColors.black, fontSize: 16, fontWeight: FontWeight.w700)),
                 ),
               ],
             ),

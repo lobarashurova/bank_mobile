@@ -44,5 +44,6 @@ class DefaultThemeColors {
   final warningDark = StaticColors.mahogany;
   final warningLight = StaticColors.snow;
   final lightBlue = StaticColors.lavender;
-  final fieldColor=Color(0xFF3D3D3D);
+  final fieldColor = Color(0xFF3D3D3D);
+  final scaffoldColor = Color(0xFF1F2936);
 }
