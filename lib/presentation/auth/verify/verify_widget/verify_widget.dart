@@ -41,19 +41,17 @@ class _VerifyWidgetState extends State<VerifyWidget> {
           50.kh,
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 45),
-            child: Flexible(
-              child: SizedBox(
-                height: 54,
-                child: CommonButton.elevated(
-                  text: "SEND",
-                  backgroundColor: Colors.amber,
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SmsVerifyPage()));
-                  },
-                ),
+            child: SizedBox(
+              height: 54,
+              child: CommonButton.elevated(
+                text: "SEND",
+                backgroundColor: Colors.amber,
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SmsVerifyPage()));
+                },
               ),
             ),
           ),

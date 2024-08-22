@@ -17,7 +17,12 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/bank.png
   AssetGenImage get bank => const AssetGenImage('assets/icons/bank.png');
+
+  /// File path: assets/icons/verify.png
   AssetGenImage get verify => const AssetGenImage('assets/icons/verify_pic.png');
+
+  /// File path: assets/icons/verified.png
+  AssetGenImage get verified => const AssetGenImage('assets/icons/verified.png');
 
   /// File path: assets/icons/eye.svg
   SvgGenImage get eye => const SvgGenImage('assets/icons/eye.svg');

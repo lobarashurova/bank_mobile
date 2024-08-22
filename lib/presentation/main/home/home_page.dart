@@ -1,3 +1,7 @@
+import 'package:bank_mobile/presentation/main/main/main_page.dart';
+import 'package:bank_mobile/presentation/main/management/management_page.dart';
+import 'package:bank_mobile/presentation/main/message/message_page.dart';
+import 'package:bank_mobile/presentation/main/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -8,8 +12,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+
+    );
   }
 }
