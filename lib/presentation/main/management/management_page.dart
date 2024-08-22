@@ -1,5 +1,8 @@
 import 'package:bank_mobile/extensions/text_extensions.dart';
 import 'package:bank_mobile/extensions/theme_extensions.dart';
+import 'package:bank_mobile/presentation/main/management/employees_info.dart';
+import 'package:bank_mobile/presentation/main/management/permission_info.dart';
+import 'package:bank_mobile/presentation/main/management/role_info.dart';
 import 'package:flutter/material.dart';
 
 class ManagementPage extends StatefulWidget {
@@ -13,9 +16,77 @@ class _ManagementPageState extends State<ManagementPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: "Forget Password?".s(12).w(400).c(context.colors.display),
-      ),
-    );
+        appBar: AppBar(
+          centerTitle: true,
+          title: "Employee managment".s(18),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: const Icon(
+                  Icons.people,
+                  color: Colors.white,
+                ),
+                title: "Employee info".s(16).c(Colors.white),
+                trailing: const Icon(
+                  Icons.navigate_next_sharp,
+                  size: 30,
+                  color: Colors.white,
+                ),
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const EmployeesInfo()));
+                },
+              ),
+              Divider(
+                color: context.colors.display,
+                thickness: 1,
+              ),
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: const Icon(
+                  Icons.info_outline_rounded,
+                  color: Colors.white,
+                ),
+                title: "Role info".s(16).c(Colors.white),
+                trailing: const Icon(
+                  Icons.navigate_next_sharp,
+                  size: 30,
+                  color: Colors.white,
+                ),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const RoleInfo()));
+                },
+              ),
+              Divider(
+                color: context.colors.display,
+                thickness: 1,
+              ),
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: const Icon(
+                  Icons.check,
+                  color: Colors.white,
+                ),
+                title: "Permission info".s(16).c(Colors.white),
+                trailing: const Icon(
+                  Icons.navigate_next_sharp,
+                  size: 30,
+                  color: Colors.white,
+                ),
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const PermissionInfo()));
+                },
+              ),
+            ],
+          ),
+        ));
   }
 }

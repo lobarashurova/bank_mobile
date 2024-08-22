@@ -126,7 +126,7 @@ class _CommonTextFieldState extends State<CommonTextField> {
         alignLabelWithHint: true,
         labelStyle:
             GoogleFonts.nunito(fontSize: 12, color: context.colors.display),
-        fillColor: widget.background,
+        fillColor: widget.background ?? context.colors.display,
         hintText: widget.hint,
         errorText: widget.errorText,
         errorMaxLines: 5,
@@ -145,7 +145,7 @@ class _CommonTextFieldState extends State<CommonTextField> {
         hintStyle: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w400,
-          color: context.colors.display,
+          color: context.colors.onPrimary,
         ),
         border: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.transparent),
