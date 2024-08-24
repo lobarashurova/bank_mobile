@@ -2,7 +2,8 @@ import 'package:bank_mobile/extensions/text_extensions.dart';
 import 'package:bank_mobile/extensions/theme_extensions.dart';
 import 'package:flutter/material.dart';
 
-import '../../../app/common/widgets/common_text_filed.dart';
+import '../../../../app/common/widgets/common_text_filed.dart';
+
 
 class PermissionInfo extends StatefulWidget {
   const PermissionInfo({super.key});

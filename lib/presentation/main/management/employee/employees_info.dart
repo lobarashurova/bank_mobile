@@ -3,10 +3,12 @@ import 'package:bank_mobile/extensions/text_extensions.dart';
 import 'package:bank_mobile/extensions/theme_extensions.dart';
 import 'package:bank_mobile/extensions/widget.dart';
 import 'package:bank_mobile/presentation/main/home/data/employee_class.dart';
-import 'package:bank_mobile/presentation/main/management/edite_employees.dart';
+import 'package:bank_mobile/presentation/main/management/employee/create_employee.dart';
 import 'package:flutter/material.dart';
 
-import '../../../app/common/widgets/common_text_filed.dart';
+import '../../../../app/common/widgets/common_text_filed.dart';
+import 'edite_employees.dart';
+
 
 class EmployeesInfo extends StatefulWidget {
   const EmployeesInfo({super.key});
@@ -32,7 +34,11 @@ class _EmployeesInfoState extends State<EmployeesInfo> {
           IconButton(
             icon: Icon(Icons.add),
             color: Colors.white,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const CreateEmployee()));
+
+            },
           )
         ],
       ),
@@ -51,7 +57,7 @@ class _EmployeesInfoState extends State<EmployeesInfo> {
               ),
               16.kh,
               ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: employees.length, // Number of items in the list
                 itemBuilder: (context, index) {

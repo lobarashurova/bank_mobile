@@ -1,6 +1,7 @@
 import 'package:bank_mobile/app/common/widgets/base_app_bar.dart';
 import 'package:bank_mobile/app/common/widgets/common_button.dart';
 import 'package:bank_mobile/app/common/widgets/common_text_filed.dart';
+import 'package:bank_mobile/data/gen/assets.gen.dart';
 import 'package:bank_mobile/extensions/text_extensions.dart';
 import 'package:bank_mobile/extensions/theme_extensions.dart';
 import 'package:bank_mobile/extensions/widget.dart';
@@ -36,10 +37,11 @@ class _EditeEmployeesState extends State<EditeEmployees> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Container(
-                height: MediaQuery.of(context).size.height * 0.09,
-                width: MediaQuery.of(context).size.width * 0.3,
-                color: context.colors.onPrimary,
+              CircleAvatar(
+                backgroundColor: Colors.grey,
+                minRadius: 70,
+                maxRadius: 80,
+                child: Assets.icons.bank.image(width: 100, height: 100),
               ),
               16.kh,
               CommonTextField(

@@ -37,8 +37,14 @@ class $AssetsIconsGen {
   /// File path: assets/icons/uneye.svg
   SvgGenImage get uneye => const SvgGenImage('assets/icons/uneye.svg');
 
+  /// File path: assets/icons/profile.svg
+  AssetGenImage get profile => const AssetGenImage('assets/icons/profile.png');
+
+  /// File path: assets/icons/edit.svg
+  SvgGenImage get edit => const SvgGenImage('assets/icons/edit.svg');
+
   /// List of all assets
-  List<dynamic> get values => [bank, eye, google, smsVerification, uneye];
+  List<dynamic> get values => [bank, eye, google, smsVerification, uneye, profile, edit];
 }
 
 class Assets {

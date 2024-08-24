@@ -198,7 +198,7 @@ class _CommonTextFieldState extends State<CommonTextField> {
       style: TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w400,
-        color: context.colors.display,
+        color: context.colors.onPrimary,
       ),
     );
   }

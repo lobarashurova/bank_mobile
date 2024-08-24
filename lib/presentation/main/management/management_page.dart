@@ -1,9 +1,10 @@
 import 'package:bank_mobile/extensions/text_extensions.dart';
 import 'package:bank_mobile/extensions/theme_extensions.dart';
-import 'package:bank_mobile/presentation/main/management/employees_info.dart';
-import 'package:bank_mobile/presentation/main/management/permission_info.dart';
-import 'package:bank_mobile/presentation/main/management/role_info.dart';
+import 'package:bank_mobile/presentation/main/management/permission/permission_info.dart';
+import 'package:bank_mobile/presentation/main/management/role/role_info.dart';
 import 'package:flutter/material.dart';
+
+import 'employee/employees_info.dart';
 
 class ManagementPage extends StatefulWidget {
   const ManagementPage({super.key});
@@ -80,6 +81,7 @@ class _ManagementPageState extends State<ManagementPage> {
                   size: 30,
                   color: Colors.white,
                 ),
+
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => const PermissionInfo()));
