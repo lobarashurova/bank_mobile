@@ -53,7 +53,7 @@ class _EditeProfileState extends State<EditeProfile> {
                16.kh,
 
                CommonTextField(
-                 hint: "Address",
+                 hint: "Address ",
                  controller: addressController,
                ),
                16.kh,
