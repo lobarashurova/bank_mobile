@@ -17,7 +17,7 @@ class RoleInfo extends StatefulWidget {
 }
 
 class _RoleInfoState extends State<RoleInfo> {
-  TextEditingController editeRole = TextEditingController();
+  TextEditingController editRole = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,8 +26,7 @@ class _RoleInfoState extends State<RoleInfo> {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const AddRole()));
+
               },
               icon: const Icon(Icons.add))
         ],
@@ -53,12 +52,6 @@ class _RoleInfoState extends State<RoleInfo> {
                   itemBuilder: (context, index) {
                     return Dismissible(
                         key: Key(roles[index]),
-                        child: ListTile(
-                          contentPadding: EdgeInsets.zero,
-                          leading: (index + 1).toString().s(15).c(Colors.white),
-                          title: roles[index].s(16).c(Colors.white),
-                          onTap: () {},
-                        ),
                         background: Container(
                           color: Colors.red,
                           alignment: Alignment.centerLeft,
@@ -119,6 +112,12 @@ class _RoleInfoState extends State<RoleInfo> {
                             SnackBar(content: Text('Item dismissed')),
                           );
                         },
+                        child: ListTile(
+                          contentPadding: EdgeInsets.zero,
+                          leading: (index + 1).toString().s(15).c(Colors.white),
+                          title: roles[index].s(16).c(Colors.white),
+                          onTap: () {},
+                        ),
 
                         );
                   })

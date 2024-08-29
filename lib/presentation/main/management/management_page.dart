@@ -19,7 +19,7 @@ class _ManagementPageState extends State<ManagementPage> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: "Employee managment".s(18),
+          title: "Employee management".s(18),
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),

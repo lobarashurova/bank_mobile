@@ -4,7 +4,7 @@ import 'package:bank_mobile/app/common/widgets/base_app_bar.dart';
 import 'package:bank_mobile/extensions/text_extensions.dart';
 import 'package:bank_mobile/extensions/theme_extensions.dart';
 import 'package:bank_mobile/extensions/widget.dart';
-import 'package:bank_mobile/presentation/main/profile/edite_profile.dart';
+import 'package:bank_mobile/presentation/main/profile/edit_profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';

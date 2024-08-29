@@ -7,7 +7,7 @@ import 'package:bank_mobile/presentation/main/management/employee/create_employe
 import 'package:flutter/material.dart';
 
 import '../../../../app/common/widgets/common_text_filed.dart';
-import 'edite_employees.dart';
+import 'edit_employees.dart';
 
 
 class EmployeesInfo extends StatefulWidget {
