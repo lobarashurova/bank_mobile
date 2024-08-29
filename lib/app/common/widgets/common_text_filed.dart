@@ -145,7 +145,9 @@ class _CommonTextFieldState extends State<CommonTextField> {
         hintStyle: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w400,
-          color: context.colors.onPrimary,
+          color: widget.background != null
+              ? context.colors.display
+              : context.colors.onPrimary,
         ),
         border: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.transparent),
@@ -198,7 +200,9 @@ class _CommonTextFieldState extends State<CommonTextField> {
       style: TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w400,
-        color: context.colors.onPrimary,
+        color: widget.background != null
+            ? context.colors.primary
+            : context.colors.onPrimary,
       ),
     );
   }

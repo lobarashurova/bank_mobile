@@ -24,15 +24,15 @@ class _ProfilePageState extends State<ProfilePage> {
   bool mode1 = true;
   bool mode2 = true;
 
-  final ImagePicker picker = ImagePicker();
-  File? file;
-  XFile? pickedImage;
-  Future pickImageFromGallery() async {
-    pickedImage = await picker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      file = File(pickedImage!.path);
-    });
-  }
+    final ImagePicker picker = ImagePicker();
+    File? file;
+    XFile? pickedImage;
+    Future pickImageFromGallery() async {
+      pickedImage = await picker.pickImage(source: ImageSource.gallery);
+      setState(() {
+        file = File(pickedImage!.path);
+      });
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +70,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ],
           ),
           20.kh,
-          "Fatima Rustamova".s(20).c(Colors.white),
+          "User userov".s(20).c(Colors.white).w(600),
           20.kh,
           ListTile(
             contentPadding: EdgeInsets.zero,

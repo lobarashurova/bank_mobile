@@ -16,7 +16,7 @@ abstract class StaticColors {
   static const whiteLilac = Color(0xFFE7E7E9);
   static const mahogany = Color(0xFFC93E3E);
   static const snow = Color(0xFFFFEFEF);
-  static const lavender = Color(0xFFF3FAFD);
+  static const lavender = Color(0xFF00BFFF);
   static const serena = Color(0xFFC896FE);
 }
 

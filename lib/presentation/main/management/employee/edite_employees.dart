@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bank_mobile/app/common/widgets/base_app_bar.dart';
 import 'package:bank_mobile/app/common/widgets/common_button.dart';
 import 'package:bank_mobile/app/common/widgets/common_text_filed.dart';
@@ -6,6 +8,7 @@ import 'package:bank_mobile/extensions/text_extensions.dart';
 import 'package:bank_mobile/extensions/theme_extensions.dart';
 import 'package:bank_mobile/extensions/widget.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class EditeEmployees extends StatefulWidget {
   const EditeEmployees({super.key});
@@ -26,6 +29,17 @@ class _EditeEmployeesState extends State<EditeEmployees> {
   TextEditingController genderController = TextEditingController();
   TextEditingController jobController = TextEditingController();
   TextEditingController roleController = TextEditingController();
+
+  final ImagePicker picker = ImagePicker();
+  File? file;
+  XFile? pickedImage;
+  Future pickImageFromGallery() async {
+    pickedImage = await picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      file = File(pickedImage!.path);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,11 +51,28 @@ class _EditeEmployeesState extends State<EditeEmployees> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              CircleAvatar(
-                backgroundColor: Colors.grey,
-                minRadius: 70,
-                maxRadius: 80,
-                child: Assets.icons.bank.image(width: 100, height: 100),
+              Stack(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(1000)),
+                    child: file?.path != null
+                        ? Image.file(
+                      width: 160,
+                      height: 160,
+                      File(file!.path),
+                      fit: BoxFit.cover,
+                    )
+                        : Assets.icons.profile.image(width: 160, height: 160),
+                  ),
+                  Positioned(
+                      bottom: 16,
+                      right: 10,
+                      child: InkWell(
+                          onTap: () async {
+                            await pickImageFromGallery();
+                          },
+                          child: Assets.icons.edit.svg())),
+                ],
               ),
               16.kh,
               CommonTextField(

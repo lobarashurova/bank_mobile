@@ -1,6 +1,5 @@
 import 'package:bank_mobile/extensions/text_extensions.dart';
 import 'package:bank_mobile/extensions/theme_extensions.dart';
-import 'package:bank_mobile/presentation/main/management/permission/permission_info.dart';
 import 'package:bank_mobile/presentation/main/management/role/role_info.dart';
 import 'package:flutter/material.dart';
 
@@ -38,8 +37,10 @@ class _ManagementPageState extends State<ManagementPage> {
                   color: Colors.white,
                 ),
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const EmployeesInfo()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const EmployeesInfo()));
                 },
               ),
               Divider(
@@ -68,24 +69,6 @@ class _ManagementPageState extends State<ManagementPage> {
               Divider(
                 color: context.colors.display,
                 thickness: 1,
-              ),
-              ListTile(
-                contentPadding: EdgeInsets.zero,
-                leading: const Icon(
-                  Icons.check,
-                  color: Colors.white,
-                ),
-                title: "Permission info".s(16).c(Colors.white),
-                trailing: const Icon(
-                  Icons.navigate_next_sharp,
-                  size: 30,
-                  color: Colors.white,
-                ),
-
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const PermissionInfo()));
-                },
               ),
             ],
           ),
