@@ -147,7 +147,7 @@ class _CommonTextFieldState extends State<CommonTextField> {
           fontWeight: FontWeight.w400,
           color: widget.background != null
               ? context.colors.display
-              : context.colors.onPrimary,
+              : context.colors.grey,
         ),
         border: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.transparent),

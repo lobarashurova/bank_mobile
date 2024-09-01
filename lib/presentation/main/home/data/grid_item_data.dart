@@ -3,8 +3,7 @@ import 'package:flutter/cupertino.dart';
 class Item {
    Widget title;
    Widget icon;
-   int number;
-   Widget description;
+   Widget widget;
 
-   Item(this.title, this.icon, this.number, this.description);
+   Item(this.title, this.icon, this.widget);
 }
