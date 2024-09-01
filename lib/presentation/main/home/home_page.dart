@@ -4,11 +4,16 @@ import 'package:bank_mobile/extensions/theme_extensions.dart';
 import 'package:bank_mobile/extensions/widget.dart';
 import 'package:bank_mobile/presentation/main/home/data/grid_item_data.dart';
 import 'package:bank_mobile/presentation/main/home/notifications/notifications_page.dart';
+import 'package:bank_mobile/presentation/main/home/payment/payment_page.dart';
 import 'package:bank_mobile/presentation/main/home/widgets/bar_widget.dart';
 import 'package:bank_mobile/presentation/main/home/widgets/income_line_charts.dart';
 import 'package:bank_mobile/presentation/main/home/widgets/outcome_line.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'credit/credit_page.dart';
+import 'currency/currency_page.dart';
+import 'deposit/deposit_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,39 +24,49 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final List<double> data = [10, 12, 8, 15, 7];
+  bool expend = false;
   final List<Item> items = [
     Item(
-        "Total sales".s(15).c(Colors.white),
-        const Icon(
-          Icons.shopping_basket,
+      "Take Credit".s(15).c(Colors.white),
+      CircleAvatar(
+        backgroundColor: Colors.deepPurpleAccent.withOpacity(0.3),
+        child: Icon(
+          CupertinoIcons.person_alt,
           color: Colors.white,
         ),
-        1452,
-        "+9.4% from previous period".c(Colors.green)),
+      ),
+      CreditPage(),
+    ),
     Item(
-        "New orders".s(15).c(Colors.white),
-        const Icon(
-          Icons.attach_money,
-          color: Colors.white,
+        "Deposits".s(15).c(Colors.white),
+        CircleAvatar(
+          backgroundColor: Colors.deepPurpleAccent.withOpacity(0.3),
+          child: Icon(
+            Icons.shopping_basket,
+            color: Colors.white,
+          ),
         ),
-        938,
-        "-1.09% from previous period".c(Colors.red)),
+        DepositPage()),
     Item(
-        "New users".s(15).c(Colors.white),
-        const Icon(
-          Icons.person,
-          color: Colors.white,
+        "Currency".s(15).c(Colors.white),
+        CircleAvatar(
+          backgroundColor: Colors.deepPurpleAccent.withOpacity(0.3),
+          child: const Icon(
+            CupertinoIcons.money_dollar_circle_fill,
+            color: Colors.white,
+          ),
         ),
-        8246,
-        "+16.2% from previous period".c(Colors.green)),
+        CurrencyPage()),
     Item(
-        "Unique visitors".s(15).c(Colors.white),
-        const Icon(
-          Icons.query_stats_outlined,
-          color: Colors.white,
+        "Payment and transfers".s(15).c(Colors.white),
+        CircleAvatar(
+          backgroundColor: Colors.deepPurpleAccent.withOpacity(0.3),
+          child: const Icon(
+            CupertinoIcons.doc,
+            color: Colors.white,
+          ),
         ),
-        29670,
-        "+11.7% from previous period".c(Colors.green)),
+        PaymentPage())
   ];
 
   @override
@@ -90,36 +105,93 @@ class _HomePageState extends State<HomePage> {
                   ),
                   itemCount: items.length,
                   itemBuilder: (context, index) {
-                    return Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: context.colors.primary),
-                          borderRadius: BorderRadius.circular(10),
-                          color: context.colors.label,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.3),
-                              spreadRadius: 1,
-                              blurRadius: 3,
-                              offset: Offset(0, 3), // Offset of the shadow
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [items[index].title, items[index].icon],
-                            ),
-                            32.kh,
-                            "${items[index].number}".s(25).c(Colors.white),
-                            10.kh,
-                            items[index].description,
-                          ],
-                        ));
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => items[index].widget));
+                      },
+                      child: Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: context.colors.primary),
+                            borderRadius: BorderRadius.circular(10),
+                            color: context.colors.label,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.3),
+                                spreadRadius: 1,
+                                blurRadius: 3,
+                                offset: Offset(0, 3), // Offset of the shadow
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              items[index].icon,
+                              32.kh,
+                              Center(
+                                child: items[index].title,
+                              )
+                            ],
+                          )),
+                    );
                   },
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    "News".w(600).s(25).c(Colors.white),
+                    10.kw,
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          expend = !expend;
+                        });
+                      },
+                      child: expend
+                          ? "expend".s(20).c(Colors.white)
+                          : "shorten".s(20).c(Colors.white),
+                    )
+                  ],
+                ),
+                ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: expend ? 3 : 10,
+                    itemBuilder: (context, i) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        child: Container(
+                          alignment: Alignment.topLeft,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 10),
+                          decoration: BoxDecoration(
+                              color: Colors.deepPurpleAccent.withOpacity(0.1),
+                              borderRadius:
+                              const BorderRadius.all(Radius.circular(10))),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  const Badge(backgroundColor: Colors.green,),
+                                  " News".s(18).c(Colors.green),
+                                ],
+                              ),
+                              10.kh,
+                              "Асадбек Тоштемиров завоевал четвертую золотую медаль Паралимпийских игр для Узбекистана."
+                                  .s(13)
+                                  .c(Colors.white),
+                              10.kh,
+                              "01.08.2024".s(13).c(Colors.white70)
+                            ],
+                          ),
+                        ),
+                      );
+                    }),
                 16.kh,
                 "Outcomes".s(14).w(600).c(context.colors.onPrimary),
                 16.kh,
