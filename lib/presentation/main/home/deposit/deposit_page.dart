@@ -1,4 +1,3 @@
-import 'package:bank_mobile/app/common/widgets/base_app_bar.dart';
 import 'package:bank_mobile/extensions/text_extensions.dart';
 import 'package:bank_mobile/extensions/widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,6 +16,7 @@ class _DepositPageState extends State<DepositPage> {
   TextEditingController cardNumber = TextEditingController();
   TextEditingController sum = TextEditingController();
   double currencyValue = 100;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,14 +25,13 @@ class _DepositPageState extends State<DepositPage> {
         title: "Deposit".s(16),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             "Depositor name".s(15).c(Colors.white),
             12.kh,
             CommonTextField(
-              controller: cardNumber,
               background: Colors.deepPurpleAccent.withOpacity(0.1),
               prefixIcon: const Icon(
                 CupertinoIcons.person_alt,
@@ -49,7 +48,6 @@ class _DepositPageState extends State<DepositPage> {
             "Deposit amount".s(15).c(Colors.white),
             12.kh,
             CommonTextField(
-              controller: cardNumber,
               background: Colors.deepPurpleAccent.withOpacity(0.1),
               prefixIcon: const Icon(
                 CupertinoIcons.money_dollar,
@@ -90,7 +88,6 @@ class _DepositPageState extends State<DepositPage> {
             "How much to take each month:".s(15).c(Colors.white),
             12.kh,
             CommonTextField(
-              controller: cardNumber,
               background: Colors.deepPurpleAccent.withOpacity(0.1),
               prefixIcon: const Icon(
                 CupertinoIcons.money_dollar,
@@ -108,14 +105,12 @@ class _DepositPageState extends State<DepositPage> {
             CommonTextField(
               maxLines: 7,
               minLines: 6,
-              controller: cardNumber,
               background: Colors.deepPurpleAccent.withOpacity(0.1),
               keyboardType: TextInputType.number,
               enabled: true,
               enabledBorderColor: Colors.deepPurpleAccent,
             ),
-            20.kh,
-
+            Spacer(),
             InkWell(
               onTap: () {
                 Navigator.pop(context);
@@ -124,7 +119,7 @@ class _DepositPageState extends State<DepositPage> {
               child: Container(
                 alignment: Alignment.center,
                 padding:
-                const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 decoration: const BoxDecoration(
                     color: Colors.deepPurpleAccent,
                     borderRadius: BorderRadius.all(Radius.circular(10))),

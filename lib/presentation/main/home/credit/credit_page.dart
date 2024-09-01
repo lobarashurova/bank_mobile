@@ -25,14 +25,13 @@ class _CreditPageState extends State<CreditPage> {
         title: "Take credit".s(20),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             "Borrower".s(15).c(Colors.white),
             12.kh,
             CommonTextField(
-              controller: cardNumber,
               background: Colors.deepPurpleAccent.withOpacity(0.1),
               prefixIcon: const Icon(
                 CupertinoIcons.person_alt,
@@ -49,7 +48,6 @@ class _CreditPageState extends State<CreditPage> {
             "Amount".s(15).c(Colors.white),
             12.kh,
             CommonTextField(
-              controller: cardNumber,
               background: Colors.deepPurpleAccent.withOpacity(0.1),
               prefixIcon: const Icon(
                 CupertinoIcons.money_dollar,
@@ -77,20 +75,19 @@ class _CreditPageState extends State<CreditPage> {
             Slider(
               activeColor: Colors.deepPurple,
               max: 100,
-                divisions: 100,
-                label: "${currencyValue.round()} month",
-                value: currencyValue,
-                onChanged: (double value) {
-                  setState(() {
-                    currencyValue = value;
-                  });
-                },
+              divisions: 100,
+              label: "${currencyValue.round()} month",
+              value: currencyValue,
+              onChanged: (double value) {
+                setState(() {
+                  currencyValue = value;
+                });
+              },
             ),
             20.kh,
             "How much to pay each month:".s(15).c(Colors.white),
             12.kh,
             CommonTextField(
-              controller: cardNumber,
               background: Colors.deepPurpleAccent.withOpacity(0.1),
               prefixIcon: const Icon(
                 CupertinoIcons.sum,
@@ -108,14 +105,13 @@ class _CreditPageState extends State<CreditPage> {
             CommonTextField(
               maxLines: 7,
               minLines: 6,
-              controller: cardNumber,
               background: Colors.deepPurpleAccent.withOpacity(0.1),
               keyboardType: TextInputType.number,
               enabled: true,
               enabledBorderColor: Colors.deepPurpleAccent,
             ),
             20.kh,
-
+            Spacer(),
             InkWell(
               onTap: () {
                 Navigator.pop(context);

@@ -140,6 +140,7 @@ class _HomePageState extends State<HomePage> {
                     );
                   },
                 ),
+                16.kh,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -152,15 +153,16 @@ class _HomePageState extends State<HomePage> {
                         });
                       },
                       child: expend
-                          ? "expend".s(20).c(Colors.white)
-                          : "shorten".s(20).c(Colors.white),
+                          ? "expend".s(14).c(Colors.white).w(500)
+                          : "shorten".s(14).c(Colors.white).w(500),
                     )
                   ],
                 ),
+                16.kh,
                 ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: expend ? 3 : 10,
+                    itemCount: expend ? 2 : 10,
                     itemBuilder: (context, i) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5),
@@ -171,13 +173,15 @@ class _HomePageState extends State<HomePage> {
                           decoration: BoxDecoration(
                               color: Colors.deepPurpleAccent.withOpacity(0.1),
                               borderRadius:
-                              const BorderRadius.all(Radius.circular(10))),
+                                  const BorderRadius.all(Radius.circular(10))),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
                                 children: [
-                                  const Badge(backgroundColor: Colors.green,),
+                                  const Badge(
+                                    backgroundColor: Colors.green,
+                                  ),
                                   " News".s(18).c(Colors.green),
                                 ],
                               ),
