@@ -1,7 +1,6 @@
-import 'package:bank_mobile/app/common/widgets/base_app_bar.dart';
 import 'package:bank_mobile/extensions/theme_extensions.dart';
+import 'package:bank_mobile/presentation/calendar/calendar_main/calendar_main_page.dart';
 import 'package:bank_mobile/presentation/main/home/home_page.dart';
-import 'package:bank_mobile/presentation/main/management/management_page.dart';
 import 'package:bank_mobile/presentation/main/meetings/meeting_page.dart';
 import 'package:flutter/material.dart';
 
@@ -17,13 +16,13 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   List<Widget> screenList = [
     HomePage(),
-    ManagementPage(),
+    CalendarMainPage(),
     MeetingPage(),
     ProfilePage(),
-
   ];
 
   int _currentIndex = 0;
+
   void onTabTapped(int index) {
     setState(() {
       _currentIndex = index;
@@ -43,26 +42,33 @@ class _MainPageState extends State<MainPage> {
         onTap: onTabTapped,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: context.colors.display),
-            label: 'Home',
-            activeIcon: Icon(Icons.home, color: context.colors.scaffoldColor,)
-          ),
+              icon: Icon(Icons.home, color: context.colors.display),
+              label: 'Home',
+              activeIcon: Icon(
+                Icons.home,
+                color: context.colors.scaffoldColor,
+              )),
           BottomNavigationBarItem(
-            icon:  Icon(Icons.people, color: context.colors.display),
-            label: 'Management',
-            activeIcon: Icon(Icons.people, color: context.colors.scaffoldColor,)
-          ),
+              icon: Icon(Icons.calendar_month_outlined, color: context.colors.display),
+              label: 'Calendar',
+              activeIcon: Icon(
+                Icons.calendar_month_outlined,
+                color: context.colors.scaffoldColor,
+              )),
           BottomNavigationBarItem(
-            icon: Icon(Icons.camera_alt, color: context.colors.display),
-            label: 'Meetings',
-            activeIcon: Icon(Icons.camera_alt, color: context.colors.scaffoldColor,)
-          ),
-
+              icon: Icon(Icons.camera_alt, color: context.colors.display),
+              label: 'Meetings',
+              activeIcon: Icon(
+                Icons.camera_alt,
+                color: context.colors.scaffoldColor,
+              )),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person, color: context.colors.display),
-            label: 'Profile',
-            activeIcon: Icon(Icons.person, color: context.colors.scaffoldColor,)
-          ),
+              icon: Icon(Icons.person, color: context.colors.display),
+              label: 'Profile',
+              activeIcon: Icon(
+                Icons.person,
+                color: context.colors.scaffoldColor,
+              )),
         ],
       ),
     );

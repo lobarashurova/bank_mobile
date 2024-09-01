@@ -4,6 +4,9 @@ import 'package:bank_mobile/extensions/theme_extensions.dart';
 import 'package:bank_mobile/extensions/widget.dart';
 import 'package:bank_mobile/presentation/main/home/data/grid_item_data.dart';
 import 'package:bank_mobile/presentation/main/home/notifications/notifications_page.dart';
+import 'package:bank_mobile/presentation/main/home/widgets/bar_widget.dart';
+import 'package:bank_mobile/presentation/main/home/widgets/income_line_charts.dart';
+import 'package:bank_mobile/presentation/main/home/widgets/outcome_line.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +18,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final List<double> data = [10, 12, 8, 15, 7];
   final List<Item> items = [
     Item(
         "Total sales".s(15).c(Colors.white),
@@ -58,6 +62,7 @@ class _HomePageState extends State<HomePage> {
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -84,7 +89,6 @@ class _HomePageState extends State<HomePage> {
                     mainAxisSpacing: 10.0, // Space between rows
                   ),
                   itemCount: items.length,
-                  // Total number of items (2 rows * 3 columns)
                   itemBuilder: (context, index) {
                     return Container(
                         padding: const EdgeInsets.all(10),
@@ -95,11 +99,8 @@ class _HomePageState extends State<HomePage> {
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black.withOpacity(0.3),
-                              // Shadow color
                               spreadRadius: 1,
-                              // Spread radius
                               blurRadius: 3,
-                              // Blur radius
                               offset: Offset(0, 3), // Offset of the shadow
                             ),
                           ],
@@ -118,7 +119,18 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ));
                   },
-                )
+                ),
+                16.kh,
+                "Outcomes".s(14).w(600).c(context.colors.onPrimary),
+                16.kh,
+                OutcomeLine(),
+                "Incomes".s(14).w(600).c(context.colors.onPrimary),
+                16.kh,
+                InComeLine(),
+                16.kh,
+                "Daily benefit".s(14).w(600).c(context.colors.onPrimary),
+                32.kh,
+                BarWidget()
               ],
             ),
           ),

@@ -1,17 +1,15 @@
 import 'dart:io';
 
-import 'package:bank_mobile/app/common/widgets/base_app_bar.dart';
 import 'package:bank_mobile/extensions/text_extensions.dart';
 import 'package:bank_mobile/extensions/theme_extensions.dart';
 import 'package:bank_mobile/extensions/widget.dart';
+import 'package:bank_mobile/presentation/main/management/management_page.dart';
 import 'package:bank_mobile/presentation/main/profile/edit_profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../data/gen/assets.gen.dart';
-import '../management/employee/employees_info.dart';
-import '../management/role/role_info.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -24,15 +22,16 @@ class _ProfilePageState extends State<ProfilePage> {
   bool mode1 = true;
   bool mode2 = true;
 
-    final ImagePicker picker = ImagePicker();
-    File? file;
-    XFile? pickedImage;
-    Future pickImageFromGallery() async {
-      pickedImage = await picker.pickImage(source: ImageSource.gallery);
-      setState(() {
-        file = File(pickedImage!.path);
-      });
-    }
+  final ImagePicker picker = ImagePicker();
+  File? file;
+  XFile? pickedImage;
+
+  Future pickImageFromGallery() async {
+    pickedImage = await picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      file = File(pickedImage!.path);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,11 +51,11 @@ class _ProfilePageState extends State<ProfilePage> {
                 borderRadius: BorderRadius.all(Radius.circular(1000)),
                 child: file?.path != null
                     ? Image.file(
-                  width: 160,
-                  height: 160,
-                  File(file!.path),
-                  fit: BoxFit.cover,
-                )
+                        width: 160,
+                        height: 160,
+                        File(file!.path),
+                        fit: BoxFit.cover,
+                      )
                     : Assets.icons.profile.image(width: 160, height: 160),
               ),
               Positioned(
@@ -101,15 +100,17 @@ class _ProfilePageState extends State<ProfilePage> {
               Icons.settings_outlined,
               color: Colors.white,
             ),
-            title: "Settings".s(16).c(Colors.white),
+            title: "Employee management".s(16).c(Colors.white),
             trailing: const Icon(
               Icons.navigate_next_sharp,
               size: 30,
               color: Colors.white,
             ),
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const RoleInfo()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ManagementPage()));
             },
           ),
           Divider(
@@ -179,15 +180,17 @@ class _ProfilePageState extends State<ProfilePage> {
                   context: context,
                   builder: (context) {
                     return CupertinoAlertDialog(
-                      title: "Do want to really log out?".s(20).w(500).c(context.colors.label),
+                      title: "Do want to really log out?"
+                          .s(20)
+                          .w(500)
+                          .c(context.colors.label),
                       actions: [
                         CupertinoDialogAction(
                           isDestructiveAction: false,
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          child:
-                              "Cancel".s(16).w(400).c(context.colors.label),
+                          child: "Cancel".s(16).w(400).c(context.colors.label),
                         ),
                         CupertinoDialogAction(
                           isDestructiveAction: false,
