@@ -36,23 +36,23 @@ class _HomePageState extends State<HomePage> {
       "Deposits".s(15).c(Colors.white),
       CircleAvatar(
         backgroundColor: Colors.deepPurpleAccent.withOpacity(0.3),
-        child: Icon(
+        child: const Icon(
           Icons.shopping_basket,
           color: Colors.white,
         ),
       ),
-      DepositPage()
+      const DepositPage()
     ),
     Item(
       "Currency".s(15).c(Colors.white),
       CircleAvatar(
         backgroundColor: Colors.deepPurpleAccent.withOpacity(0.3),
-        child: Icon(
+        child: const Icon(
           CupertinoIcons.money_dollar_circle_fill,
           color: Colors.white,
         ),
       ),
-      CurrencyPage()
+      const CurrencyPage()
     ),
     Item(
       "Payment and transfers".s(15).c(Colors.white),
@@ -103,12 +103,11 @@ class _HomePageState extends State<HomePage> {
                   shrinkWrap: true,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     childAspectRatio: 1.1,
-                    crossAxisCount: 2, // Number of columns
-                    crossAxisSpacing: 10.0, // Space between columns
-                    mainAxisSpacing: 10.0, // Space between rows
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 10.0,
+                    mainAxisSpacing: 10.0,
                   ),
                   itemCount: items.length,
-                  // Total number of items (2 rows * 3 columns)
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
@@ -123,12 +122,9 @@ class _HomePageState extends State<HomePage> {
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black.withOpacity(0.3),
-                                // Shadow color
                                 spreadRadius: 1,
-                                // Spread radius
                                 blurRadius: 3,
-                                // Blur radius
-                                offset: Offset(0, 3), // Offset of the shadow
+                                offset: Offset(0, 3),
                               ),
                             ],
                           ),
@@ -161,13 +157,13 @@ class _HomePageState extends State<HomePage> {
                         });
                       },
                       child: expend
-                          ? "expend".s(20).c(Colors.white)
-                          : "shorten".s(20).c(Colors.white),
+                          ? "expend".s(20).c(context.colors.onPrimary)
+                          : "shorten".s(20).c(context.colors.onPrimary),
                     )
                   ],
                 ),
                 ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: expend ? 3 : 10,
                     itemBuilder: (context, i) {

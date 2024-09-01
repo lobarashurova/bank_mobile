@@ -4,6 +4,7 @@ import 'package:bank_mobile/presentation/main/home/home_page.dart';
 import 'package:bank_mobile/presentation/main/management/management_page.dart';
 import 'package:bank_mobile/presentation/main/meetings/meeting_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../profile/profile_page.dart';
 
@@ -30,12 +31,12 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: screenList[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: context.colors.scaffoldColor,
         unselectedItemColor: context.colors.display,
         selectedItemColor: context.colors.scaffoldColor,
         showUnselectedLabels: true,

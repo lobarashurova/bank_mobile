@@ -18,6 +18,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Bank Mobile',
       theme: ThemeData(
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          backgroundColor: Colors.transparent
+        ),
         navigationBarTheme: NavigationBarThemeData(backgroundColor: context.colors.scaffoldColor),
           appBarTheme: AppBarTheme(
               backgroundColor: context.colors.scaffoldColor, elevation: 0),

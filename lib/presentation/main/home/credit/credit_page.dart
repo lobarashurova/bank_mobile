@@ -25,14 +25,13 @@ class _CreditPageState extends State<CreditPage> {
         title: "Take credit".s(20),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             "Borrower".s(15).c(Colors.white),
             12.kh,
             CommonTextField(
-              controller: cardNumber,
               background: Colors.deepPurpleAccent.withOpacity(0.1),
               prefixIcon: const Icon(
                 CupertinoIcons.person_alt,
@@ -49,7 +48,6 @@ class _CreditPageState extends State<CreditPage> {
             "Amount".s(15).c(Colors.white),
             12.kh,
             CommonTextField(
-              controller: cardNumber,
               background: Colors.deepPurpleAccent.withOpacity(0.1),
               prefixIcon: const Icon(
                 CupertinoIcons.money_dollar,
@@ -90,7 +88,6 @@ class _CreditPageState extends State<CreditPage> {
             "How much to pay each month:".s(15).c(Colors.white),
             12.kh,
             CommonTextField(
-              controller: cardNumber,
               background: Colors.deepPurpleAccent.withOpacity(0.1),
               prefixIcon: const Icon(
                 CupertinoIcons.sum,
@@ -108,7 +105,6 @@ class _CreditPageState extends State<CreditPage> {
             CommonTextField(
               maxLines: 7,
               minLines: 6,
-              controller: cardNumber,
               background: Colors.deepPurpleAccent.withOpacity(0.1),
               keyboardType: TextInputType.number,
               enabled: true,
@@ -123,14 +119,13 @@ class _CreditPageState extends State<CreditPage> {
               borderRadius: const BorderRadius.all(Radius.circular(10)),
               child: Container(
                 alignment: Alignment.center,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 decoration: const BoxDecoration(
                     color: Colors.deepPurpleAccent,
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 child: "Finish".s(16).c(Colors.white70),
               ),
-            )
+            ),
           ],
         ),
       ),

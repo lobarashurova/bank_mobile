@@ -25,7 +25,7 @@ class _DepositPageState extends State<DepositPage> {
         title: "Deposit".s(16),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
