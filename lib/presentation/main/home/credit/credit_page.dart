@@ -25,7 +25,7 @@ class _CreditPageState extends State<CreditPage> {
         title: "Take credit".s(20),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -75,14 +75,14 @@ class _CreditPageState extends State<CreditPage> {
             Slider(
               activeColor: Colors.deepPurple,
               max: 100,
-                divisions: 100,
-                label: "${currencyValue.round()} month",
-                value: currencyValue,
-                onChanged: (double value) {
-                  setState(() {
-                    currencyValue = value;
-                  });
-                },
+              divisions: 100,
+              label: "${currencyValue.round()} month",
+              value: currencyValue,
+              onChanged: (double value) {
+                setState(() {
+                  currencyValue = value;
+                });
+              },
             ),
             20.kh,
             "How much to pay each month:".s(15).c(Colors.white),
@@ -111,7 +111,7 @@ class _CreditPageState extends State<CreditPage> {
               enabledBorderColor: Colors.deepPurpleAccent,
             ),
             20.kh,
-
+            Spacer(),
             InkWell(
               onTap: () {
                 Navigator.pop(context);
@@ -119,13 +119,14 @@ class _CreditPageState extends State<CreditPage> {
               borderRadius: const BorderRadius.all(Radius.circular(10)),
               child: Container(
                 alignment: Alignment.center,
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 decoration: const BoxDecoration(
                     color: Colors.deepPurpleAccent,
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 child: "Finish".s(16).c(Colors.white70),
               ),
-            ),
+            )
           ],
         ),
       ),

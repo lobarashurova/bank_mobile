@@ -2,15 +2,18 @@ import 'package:bank_mobile/extensions/navigation_extensions.dart';
 import 'package:bank_mobile/extensions/text_extensions.dart';
 import 'package:bank_mobile/extensions/theme_extensions.dart';
 import 'package:bank_mobile/extensions/widget.dart';
-import 'package:bank_mobile/presentation/main/home/credit/credit_page.dart';
-import 'package:bank_mobile/presentation/main/home/currency/currency_page.dart';
 import 'package:bank_mobile/presentation/main/home/data/grid_item_data.dart';
-import 'package:bank_mobile/presentation/main/home/data/news_class.dart';
-import 'package:bank_mobile/presentation/main/home/deposit/deposit_page.dart';
 import 'package:bank_mobile/presentation/main/home/notifications/notifications_page.dart';
 import 'package:bank_mobile/presentation/main/home/payment/payment_page.dart';
+import 'package:bank_mobile/presentation/main/home/widgets/bar_widget.dart';
+import 'package:bank_mobile/presentation/main/home/widgets/income_line_charts.dart';
+import 'package:bank_mobile/presentation/main/home/widgets/outcome_line.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'credit/credit_page.dart';
+import 'currency/currency_page.dart';
+import 'deposit/deposit_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -20,6 +23,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final List<double> data = [10, 12, 8, 15, 7];
+  bool expend = false;
   final List<Item> items = [
     Item(
       "Take Credit".s(15).c(Colors.white),
@@ -33,44 +38,36 @@ class _HomePageState extends State<HomePage> {
       CreditPage(),
     ),
     Item(
-      "Deposits".s(15).c(Colors.white),
-      CircleAvatar(
-        backgroundColor: Colors.deepPurpleAccent.withOpacity(0.3),
-        child: const Icon(
-          Icons.shopping_basket,
-          color: Colors.white,
+        "Deposits".s(15).c(Colors.white),
+        CircleAvatar(
+          backgroundColor: Colors.deepPurpleAccent.withOpacity(0.3),
+          child: Icon(
+            Icons.shopping_basket,
+            color: Colors.white,
+          ),
         ),
-      ),
-      const DepositPage()
-    ),
+        DepositPage()),
     Item(
-      "Currency".s(15).c(Colors.white),
-      CircleAvatar(
-        backgroundColor: Colors.deepPurpleAccent.withOpacity(0.3),
-        child: const Icon(
-          CupertinoIcons.money_dollar_circle_fill,
-          color: Colors.white,
+        "Currency".s(15).c(Colors.white),
+        CircleAvatar(
+          backgroundColor: Colors.deepPurpleAccent.withOpacity(0.3),
+          child: const Icon(
+            CupertinoIcons.money_dollar_circle_fill,
+            color: Colors.white,
+          ),
         ),
-      ),
-      const CurrencyPage()
-    ),
+        CurrencyPage()),
     Item(
-      "Payment and transfers".s(15).c(Colors.white),
-      CircleAvatar(
-        backgroundColor: Colors.deepPurpleAccent.withOpacity(0.3),
-        child: const Icon(
-          CupertinoIcons.doc,
-          color: Colors.white,
+        "Payment and transfers".s(15).c(Colors.white),
+        CircleAvatar(
+          backgroundColor: Colors.deepPurpleAccent.withOpacity(0.3),
+          child: const Icon(
+            CupertinoIcons.doc,
+            color: Colors.white,
+          ),
         ),
-      ),
-      PaymentPage()
-    )
+        PaymentPage())
   ];
-
-
-
-
-  bool expend = false;
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +77,7 @@ class _HomePageState extends State<HomePage> {
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -87,31 +85,32 @@ class _HomePageState extends State<HomePage> {
                     "Hello user!".s(20).c(Colors.white).w(700),
                     IconButton(
                         onPressed: () {
-                          context.push(const NotificationsPage());
+                          context.push(NotificationsPage());
                         },
-                        icon: const Icon(
+                        icon: Icon(
                           CupertinoIcons.bell,
                           color: Colors.white,
                         ))
                   ],
                 ),
                 16.kh,
-
-                ///#gridview
                 GridView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     childAspectRatio: 1.1,
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 10.0,
-                    mainAxisSpacing: 10.0,
+                    crossAxisCount: 2, // Number of columns
+                    crossAxisSpacing: 10.0, // Space between columns
+                    mainAxisSpacing: 10.0, // Space between rows
                   ),
                   itemCount: items.length,
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => items[index].widget));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => items[index].widget));
                       },
                       child: Container(
                           padding: const EdgeInsets.all(10),
@@ -124,7 +123,7 @@ class _HomePageState extends State<HomePage> {
                                 color: Colors.black.withOpacity(0.3),
                                 spreadRadius: 1,
                                 blurRadius: 3,
-                                offset: Offset(0, 3),
+                                offset: Offset(0, 3), // Offset of the shadow
                               ),
                             ],
                           ),
@@ -141,10 +140,7 @@ class _HomePageState extends State<HomePage> {
                     );
                   },
                 ),
-
                 16.kh,
-
-                ///#News
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -157,15 +153,16 @@ class _HomePageState extends State<HomePage> {
                         });
                       },
                       child: expend
-                          ? "expend".s(20).c(context.colors.onPrimary)
-                          : "shorten".s(20).c(context.colors.onPrimary),
+                          ? "expend".s(14).c(Colors.white).w(500)
+                          : "shorten".s(14).c(Colors.white).w(500),
                     )
                   ],
                 ),
+                16.kh,
                 ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
+                    physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: expend ? 3 : 10,
+                    itemCount: expend ? 2 : 10,
                     itemBuilder: (context, i) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5),
@@ -180,21 +177,36 @@ class _HomePageState extends State<HomePage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                             Row(
-                               children: [
-                                 const Badge(backgroundColor: Colors.green,),
-                                 " News".s(18).c(Colors.green),
-                               ],
-                             ),
+                              Row(
+                                children: [
+                                  const Badge(
+                                    backgroundColor: Colors.green,
+                                  ),
+                                  " News".s(18).c(Colors.green),
+                                ],
+                              ),
                               10.kh,
-                              "Асадбек Тоштемиров завоевал четвертую золотую медаль Паралимпийских игр для Узбекистана.".s(13).c(Colors.white),
+                              "Асадбек Тоштемиров завоевал четвертую золотую медаль Паралимпийских игр для Узбекистана."
+                                  .s(13)
+                                  .c(Colors.white),
                               10.kh,
                               "01.08.2024".s(13).c(Colors.white70)
                             ],
                           ),
                         ),
                       );
-                    })
+                    }),
+                16.kh,
+                "Outcomes".s(14).w(600).c(context.colors.onPrimary),
+                16.kh,
+                OutcomeLine(),
+                "Incomes".s(14).w(600).c(context.colors.onPrimary),
+                16.kh,
+                InComeLine(),
+                16.kh,
+                "Daily benefit".s(14).w(600).c(context.colors.onPrimary),
+                32.kh,
+                BarWidget()
               ],
             ),
           ),
