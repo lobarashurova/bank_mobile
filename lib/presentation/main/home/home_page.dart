@@ -147,14 +147,21 @@ class _HomePageState extends State<HomePage> {
                     "News".w(600).s(25).c(Colors.white),
                     10.kw,
                     InkWell(
+                      overlayColor: WidgetStateColor.transparent, 
                       onTap: () {
                         setState(() {
                           expend = !expend;
                         });
                       },
-                      child: expend
-                          ? "expend".s(14).c(Colors.white).w(500)
-                          : "shorten".s(14).c(Colors.white).w(500),
+                      child: Row(
+                        children: [
+                          expend
+                              ? "expend".s(14).c(Colors.white).w(500)
+                              : "shorten".s(14).c(Colors.white).w(500),
+                          Transform.rotate(angle: 4.7,
+                          child: Icon(expend ? Icons.navigate_next_sharp:Icons.navigate_before_outlined, color: context.colors.onPrimary,), )
+                        ],
+                      ),
                     )
                   ],
                 ),
