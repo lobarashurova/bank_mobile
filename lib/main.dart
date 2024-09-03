@@ -1,5 +1,7 @@
 import 'package:bank_mobile/app/injection/injecttion.dart';
 import 'package:bank_mobile/extensions/theme_extensions.dart';
+import 'package:bank_mobile/presentation/main/home/home_page.dart';
+import 'package:bank_mobile/presentation/main/lock/lock_screen.dart';
 import 'package:bank_mobile/presentation/main/main/main_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +35,7 @@ class MyApp extends StatelessWidget {
               displaySmall: TextStyle(color: context.colors.onPrimary)),
           useMaterial3: false,
           scaffoldBackgroundColor: context.colors.scaffoldColor),
-      home: MainPage(),
+      home: HomePage(),
     );
   }
 }
