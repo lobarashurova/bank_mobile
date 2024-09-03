@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "331937382683",
+    "project_id": "bank-systems-fa907",
+    "storage_bucket": "bank-systems-fa907.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:331937382683:android:2913b10728ef9153d393be",
+        "android_client_info": {
+          "package_name": "uz.soluti"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDA_NJtwuBCckSb5VRR1JWpQhjcOmG5jmg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
