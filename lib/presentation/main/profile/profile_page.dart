@@ -56,7 +56,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         File(file!.path),
                         fit: BoxFit.cover,
                       )
-                    : Assets.icons.profile.image(width: 160, height: 160),
+                    : Assets.icons.profilePng.image(width: 160, height: 160),
               ),
               Positioned(
                   bottom: 16,

@@ -40,6 +40,7 @@ class _CreateEmployeeState extends State<CreateEmployee> {
     });
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,12 +59,13 @@ class _CreateEmployeeState extends State<CreateEmployee> {
                     borderRadius: BorderRadius.all(Radius.circular(1000)),
                     child: file?.path != null
                         ? Image.file(
-                      width: 160,
+                            width: 160,
                             height: 160,
                             File(file!.path),
                             fit: BoxFit.cover,
                           )
-                        : Assets.icons.profile.image(width: 160, height: 160),
+                        : Assets.icons.profilePng
+                            .image(width: 160, height: 160),
                   ),
                   Positioned(
                       bottom: 16,
@@ -135,6 +137,9 @@ class _CreateEmployeeState extends State<CreateEmployee> {
                 text: "Create",
                 backgroundColor: context.colors.primary2,
                 textColor: context.colors.onPrimary,
+                onPressed: (){
+                  
+                },
               )
             ],
           ),

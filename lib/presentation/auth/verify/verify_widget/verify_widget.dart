@@ -23,7 +23,7 @@ class _VerifyWidgetState extends State<VerifyWidget> {
       body: Column(
         children: [
           107.kh,
-          Assets.icons.verify.image(height: 359, width: 410),
+          Assets.icons.verified.image(height: 359, width: 410),
           "Verify your Number!".s(32).w(700).c(context.colors.display),
           16.kh,
           "Please enter your mobile number to \n eceive verification code"
@@ -47,10 +47,8 @@ class _VerifyWidgetState extends State<VerifyWidget> {
                 text: "SEND",
                 backgroundColor: Colors.amber,
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => SmsVerifyPage()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SmsVerifyPage()));
                 },
               ),
             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
 
 abstract class StaticColors {
   static const black = Color(0xFF000000);
@@ -20,6 +21,7 @@ abstract class StaticColors {
   static const serena = Color(0xFFC896FE);
 }
 
+@singleton
 class DefaultThemeColors {
   final primary = StaticColors.black;
   final primary01 = StaticColors.vividCerulean.withOpacity(0.1);

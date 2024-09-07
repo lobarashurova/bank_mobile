@@ -1,14 +1,15 @@
 import 'dart:io';
 
-import 'package:bank_mobile/app/common/widgets/base_app_bar.dart';
 import 'package:bank_mobile/app/common/widgets/common_button.dart';
 import 'package:bank_mobile/app/common/widgets/common_text_filed.dart';
 import 'package:bank_mobile/data/gen/assets.gen.dart';
 import 'package:bank_mobile/extensions/text_extensions.dart';
 import 'package:bank_mobile/extensions/theme_extensions.dart';
 import 'package:bank_mobile/extensions/widget.dart';
+import 'package:bank_mobile/presentation/auth/login/provider/login_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class EditeEmployees extends StatefulWidget {
   const EditeEmployees({super.key});
@@ -33,11 +34,20 @@ class _EditeEmployeesState extends State<EditeEmployees> {
   final ImagePicker picker = ImagePicker();
   File? file;
   XFile? pickedImage;
+
   Future pickImageFromGallery() async {
     pickedImage = await picker.pickImage(source: ImageSource.gallery);
     setState(() {
       file = File(pickedImage!.path);
     });
+  }
+
+  @override
+  void initState() {
+    Future.microtask(() {
+      Provider.of<LoginProvider>(context, listen: false).login("", "");
+    });
+    super.initState();
   }
 
   @override
@@ -57,12 +67,13 @@ class _EditeEmployeesState extends State<EditeEmployees> {
                     borderRadius: BorderRadius.all(Radius.circular(1000)),
                     child: file?.path != null
                         ? Image.file(
-                      width: 160,
-                      height: 160,
-                      File(file!.path),
-                      fit: BoxFit.cover,
-                    )
-                        : Assets.icons.profile.image(width: 160, height: 160),
+                            width: 160,
+                            height: 160,
+                            File(file!.path),
+                            fit: BoxFit.cover,
+                          )
+                        : Assets.icons.profilePng
+                            .image(width: 160, height: 160),
                   ),
                   Positioned(
                       bottom: 16,
@@ -80,31 +91,26 @@ class _EditeEmployeesState extends State<EditeEmployees> {
                 controller: fullNameController,
               ),
               16.kh,
-          
               CommonTextField(
                 hint: "Email",
                 controller: emailController,
               ),
               16.kh,
-          
               CommonTextField(
                 hint: "Phone number",
                 controller: phoneNumberController,
               ),
               16.kh,
-          
               CommonTextField(
                 hint: "Address",
                 controller: addressController,
               ),
               16.kh,
-          
               CommonTextField(
                 hint: "Employee(become year)",
                 controller: employeeBecomeYearController,
               ),
               16.kh,
-          
               CommonTextField(
                 hint: "Salary",
                 controller: salaryController,
@@ -135,7 +141,11 @@ class _EditeEmployeesState extends State<EditeEmployees> {
                 controller: roleController,
               ),
               16.kh,
-              CommonButton.elevated(text: "Update", backgroundColor: context.colors.primary2, textColor: context.colors.onPrimary,)
+              CommonButton.elevated(
+                text: "Update",
+                backgroundColor: context.colors.primary2,
+                textColor: context.colors.onPrimary,
+              )
             ],
           ),
         ),

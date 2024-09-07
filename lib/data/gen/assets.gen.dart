@@ -15,20 +15,45 @@ import 'package:vector_graphics/vector_graphics.dart';
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/arrow.svg
+  SvgGenImage get arrow => const SvgGenImage('assets/icons/arrow.svg');
+
   /// File path: assets/icons/bank.png
   AssetGenImage get bank => const AssetGenImage('assets/icons/bank.png');
 
-  /// File path: assets/icons/verify.png
-  AssetGenImage get verify => const AssetGenImage('assets/icons/verify_pic.png');
-
-  /// File path: assets/icons/verified.png
-  AssetGenImage get verified => const AssetGenImage('assets/icons/verified.png');
+  /// File path: assets/icons/edit.svg
+  SvgGenImage get edit => const SvgGenImage('assets/icons/edit.svg');
 
   /// File path: assets/icons/eye.svg
   SvgGenImage get eye => const SvgGenImage('assets/icons/eye.svg');
 
   /// File path: assets/icons/google.png
   AssetGenImage get google => const AssetGenImage('assets/icons/google.png');
+
+  /// File path: assets/icons/heart_selected.svg
+  SvgGenImage get heartSelected =>
+      const SvgGenImage('assets/icons/heart_selected.svg');
+
+  /// File path: assets/icons/heart_unseleted.svg
+  SvgGenImage get heartUnseleted =>
+      const SvgGenImage('assets/icons/heart_unseleted.svg');
+
+  /// File path: assets/icons/home.svg
+  SvgGenImage get home => const SvgGenImage('assets/icons/home.svg');
+
+  /// File path: assets/icons/menu.svg
+  SvgGenImage get menu => const SvgGenImage('assets/icons/menu.svg');
+
+  /// File path: assets/icons/profile.png
+  AssetGenImage get profilePng =>
+      const AssetGenImage('assets/icons/profile.png');
+
+  /// File path: assets/icons/profile.svg
+  SvgGenImage get profileSvg => const SvgGenImage('assets/icons/profile.svg');
+
+  /// File path: assets/icons/service2.png
+  AssetGenImage get service2 =>
+      const AssetGenImage('assets/icons/service2.png');
 
   /// File path: assets/icons/sms_verification.png
   AssetGenImage get smsVerification =>
@@ -37,14 +62,33 @@ class $AssetsIconsGen {
   /// File path: assets/icons/uneye.svg
   SvgGenImage get uneye => const SvgGenImage('assets/icons/uneye.svg');
 
-  /// File path: assets/icons/profile.svg
-  AssetGenImage get profile => const AssetGenImage('assets/icons/profile.png');
+  /// File path: assets/icons/verified.png
+  AssetGenImage get verified =>
+      const AssetGenImage('assets/icons/verified.png');
 
-  /// File path: assets/icons/edit.svg
-  SvgGenImage get edit => const SvgGenImage('assets/icons/edit.svg');
+  /// File path: assets/icons/verify_pic.png
+  AssetGenImage get verifyPic =>
+      const AssetGenImage('assets/icons/verify_pic.png');
 
   /// List of all assets
-  List<dynamic> get values => [bank, eye, google, smsVerification, uneye, profile, edit];
+  List<dynamic> get values => [
+        arrow,
+        bank,
+        edit,
+        eye,
+        google,
+        heartSelected,
+        heartUnseleted,
+        home,
+        menu,
+        profilePng,
+        profileSvg,
+        service2,
+        smsVerification,
+        uneye,
+        verified,
+        verifyPic
+      ];
 }
 
 class Assets {

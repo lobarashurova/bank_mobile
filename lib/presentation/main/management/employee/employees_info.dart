@@ -1,14 +1,14 @@
-import 'package:bank_mobile/app/common/widgets/base_app_bar.dart';
 import 'package:bank_mobile/extensions/text_extensions.dart';
 import 'package:bank_mobile/extensions/theme_extensions.dart';
 import 'package:bank_mobile/extensions/widget.dart';
 import 'package:bank_mobile/presentation/main/home/data/employee_class.dart';
 import 'package:bank_mobile/presentation/main/management/employee/create_employee.dart';
+import 'package:bank_mobile/presentation/main/management/employee_providers/all_employees_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../app/common/widgets/common_text_filed.dart';
 import 'edit_employees.dart';
-
 
 class EmployeesInfo extends StatefulWidget {
   const EmployeesInfo({super.key});
@@ -25,6 +25,23 @@ class _EmployeesInfoState extends State<EmployeesInfo> {
         "Flutter Developer", "01-07-2024", 2000000),
   ];
 
+  TextEditingController searchController = TextEditingController();
+
+  @override
+  void initState() {
+    Future.microtask(() {
+      Provider.of<AllEmployeesProvider>(context, listen: false)
+          .getAllEmployees();
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    searchController.clear();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,9 +52,10 @@ class _EmployeesInfoState extends State<EmployeesInfo> {
             icon: Icon(Icons.add),
             color: Colors.white,
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const CreateEmployee()));
-
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const CreateEmployee()));
             },
           )
         ],
@@ -76,61 +94,73 @@ class _EmployeesInfoState extends State<EmployeesInfo> {
                             PopupMenuButton<int>(
                               iconColor: Colors.white,
                               onSelected: (int result) {
-                                setState(() {
-                                });
+                                setState(() {});
                               },
-                              itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
-                                 PopupMenuItem<int>(
+                              itemBuilder: (BuildContext context) =>
+                                  <PopupMenuEntry<int>>[
+                                PopupMenuItem<int>(
                                   value: 1,
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       "Edite".s(15),
-                                      const Icon(Icons.edit, size: 20,),
+                                      const Icon(
+                                        Icons.edit,
+                                        size: 20,
+                                      ),
                                     ],
                                   ),
-                                   onTap: () {
-                                     Navigator.push(context,
-                                         MaterialPageRoute(builder: (context) => const EditeEmployees()));
-                                   },
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const EditeEmployees()));
+                                  },
                                 ),
-                                 PopupMenuItem<int>(
+                                PopupMenuItem<int>(
                                   value: 2,
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      "Delete".s(15),
-                                      const Icon(Icons.delete, size: 20,),
-                                    ]
-                                  ),
-                                   onTap: () {
-                                     showDialog(
-                                       context: context,
-                                       builder: (BuildContext context) {
-                                         return AlertDialog(
-                                           title: 'Delete Employee'.s(18),
-                                           content: 'Do you want to delete employee'.s(16),
-                                           actions: <Widget>[
-                                             TextButton(
-                                               child: 'Cancel'.s(16),
-                                               onPressed: () {
-                                                 Navigator.of(context).pop();
-                                               },
-                                             ),
-                                             TextButton(
-                                               child: 'OK'.s(16),
-                                               onPressed: () {
-                                                 setState(() {
-                                                   employees.removeAt(index);
-                                                 });
-                                                 Navigator.of(context).pop();
-                                               },
-                                             ),
-                                           ],
-                                         );
-                                       },
-                                     );
-                                   },
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        "Delete".s(15),
+                                        const Icon(
+                                          Icons.delete,
+                                          size: 20,
+                                        ),
+                                      ]),
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: 'Delete Employee'.s(18),
+                                          content:
+                                              'Do you want to delete employee'
+                                                  .s(16),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              child: 'Cancel'.s(16),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                            TextButton(
+                                              child: 'OK'.s(16),
+                                              onPressed: () {
+                                                setState(() {
+                                                  employees.removeAt(index);
+                                                });
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  },
                                 ),
                               ],
                             )
