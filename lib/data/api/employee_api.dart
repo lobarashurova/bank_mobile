@@ -9,7 +9,7 @@ class EmployeeApi {
   EmployeeApi(this._dio);
 
   Future<Response> getAllEmployees() {
-    return _dio.get('get-employees-list');
+    return _dio.get('get-employee-list');
   }
 
   Future<Response> getEmployee(int id) {
@@ -36,6 +36,7 @@ class EmployeeApi {
 
   Future<Response> updateEmployee(UserModel userModel) {
     FormData formData = FormData.fromMap({
+      'employee_id ': userModel.id,
       "name": userModel.name,
       "username": userModel.username,
       "email": userModel.email,
@@ -53,6 +54,6 @@ class EmployeeApi {
   }
 
   Future<Response> deleteEmployeeData(int id) {
-    return _dio.post('delete-employee', data: {'id': id});
+    return _dio.post('delete-employee', data: {'employee_id': id});
   }
 }

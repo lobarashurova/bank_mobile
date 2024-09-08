@@ -5,6 +5,7 @@ part 'user_model.g.dart';
 
 @freezed
 class UserModel with _$UserModel {
+  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory UserModel({
     int? id,
     String? name,
@@ -26,7 +27,6 @@ class UserModel with _$UserModel {
     int? darkMode,
     String? messengerColor,
     String? refreshToken,
-
   }) = _UserModel;
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>

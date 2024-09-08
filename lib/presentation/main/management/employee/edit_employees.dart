@@ -2,17 +2,23 @@ import 'dart:io';
 
 import 'package:bank_mobile/app/common/widgets/common_button.dart';
 import 'package:bank_mobile/app/common/widgets/common_text_filed.dart';
+import 'package:bank_mobile/data/api_model/user_model/user_model.dart';
 import 'package:bank_mobile/data/gen/assets.gen.dart';
+import 'package:bank_mobile/extensions/navigation_extensions.dart';
+import 'package:bank_mobile/extensions/snackbar_extensions.dart';
 import 'package:bank_mobile/extensions/text_extensions.dart';
 import 'package:bank_mobile/extensions/theme_extensions.dart';
 import 'package:bank_mobile/extensions/widget.dart';
-import 'package:bank_mobile/presentation/auth/login/provider/login_provider.dart';
+import 'package:bank_mobile/presentation/main/management/employee_providers/all_employees_provider.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class EditeEmployees extends StatefulWidget {
-  const EditeEmployees({super.key});
+  final UserModel userModel;
+
+  const EditeEmployees({super.key, required this.userModel});
 
   @override
   State<EditeEmployees> createState() => _EditeEmployeesState();
@@ -44,9 +50,16 @@ class _EditeEmployeesState extends State<EditeEmployees> {
 
   @override
   void initState() {
-    Future.microtask(() {
-      Provider.of<LoginProvider>(context, listen: false).login("", "");
-    });
+    userNameController.text = widget.userModel.username ?? "";
+    fullNameController.text = widget.userModel.name ?? "";
+    phoneNumberController.text = widget.userModel.phoneNumber ?? "";
+    emailController.text = widget.userModel.email ?? "";
+    addressController.text = widget.userModel.address ?? "";
+    genderController.text = widget.userModel.gender ?? "";
+    dateOfBirthdayController.text = widget.userModel.dob ?? "";
+    roleController.text = widget.userModel.specialist ?? "";
+    jobController.text = widget.userModel.specialist ?? "";
+    salaryController.text = widget.userModel.salary ?? "";
     super.initState();
   }
 
@@ -63,18 +76,39 @@ class _EditeEmployeesState extends State<EditeEmployees> {
             children: [
               Stack(
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(1000)),
-                    child: file?.path != null
-                        ? Image.file(
+                  widget.userModel.profilePhoto == null
+                      ? ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(1000)),
+                          child: file?.path != null
+                              ? Image.file(
+                                  width: 160,
+                                  height: 160,
+                                  File(file!.path),
+                                  fit: BoxFit.cover,
+                                )
+                              : Assets.icons.profilePng
+                                  .image(width: 160, height: 160),
+                        )
+                      : CachedNetworkImage(
+                          imageUrl: widget.userModel.profilePhoto!,
+                          progressIndicatorBuilder:
+                              (context, url, downloadProgress) => Assets
+                                  .icons.profilePng
+                                  .image(width: 160, height: 160),
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
+                          imageBuilder: (context, imageProvider) => Container(
                             width: 160,
                             height: 160,
-                            File(file!.path),
-                            fit: BoxFit.cover,
-                          )
-                        : Assets.icons.profilePng
-                            .image(width: 160, height: 160),
-                  ),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ),
                   Positioned(
                       bottom: 16,
                       right: 10,
@@ -141,10 +175,40 @@ class _EditeEmployeesState extends State<EditeEmployees> {
                 controller: roleController,
               ),
               16.kh,
-              CommonButton.elevated(
-                text: "Update",
-                backgroundColor: context.colors.primary2,
-                textColor: context.colors.onPrimary,
+              Consumer<AllEmployeesProvider>(
+                builder: (context, provider, child) {
+                  return CommonButton.elevated(
+                    text: "Update",
+                    backgroundColor: context.colors.primary2,
+                    textColor: context.colors.onPrimary,
+                    onPressed: () async {
+                      print(": idd    ${widget.userModel.id}");
+                      final status =
+                          await provider.updateEmployeeData(UserModel(
+                        id: widget.userModel.id,
+                        name: fullNameController.text,
+                        email: emailController.text,
+                        address: addressController.text,
+                        dob: dateOfBirthdayController.text,
+                        phoneNumber: phoneNumberController.text,
+                        salary: salaryController.text,
+
+                        employeeYear: employeeBecomeYearController.text,
+                        gender: genderController.text,
+                        specialist: jobController.text,
+                        username: userNameController.text,
+                      ));
+                      if (status) {
+                        context.pop();
+                      } else {
+                        context.showBeautifulSnackbar(
+                            message: provider.errorMessage ??
+                                "Failed to update data");
+                      }
+                    },
+                    loading: provider.isLoading,
+                  );
+                },
               )
             ],
           ),

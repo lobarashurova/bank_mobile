@@ -1,3 +1,5 @@
+import 'package:bank_mobile/data/api_model/user_model/user_model.dart';
+import 'package:bank_mobile/extensions/snackbar_extensions.dart';
 import 'package:bank_mobile/extensions/text_extensions.dart';
 import 'package:bank_mobile/extensions/theme_extensions.dart';
 import 'package:bank_mobile/extensions/widget.dart';
@@ -74,104 +76,164 @@ class _EmployeesInfoState extends State<EmployeesInfo> {
                 background: context.colors.grey.withOpacity(0.4),
               ),
               16.kh,
-              ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: employees.length, // Number of items in the list
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(top: 10),
-                        width: MediaQuery.of(context).size.width,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            "${index + 1}".s(12).c(Colors.white),
-                            employees[index].name.s(12).c(Colors.white),
-                            employees[index].date.s(12).c(Colors.white),
-                            employees[index].role.s(12).c(Colors.white),
-                            PopupMenuButton<int>(
-                              iconColor: Colors.white,
-                              onSelected: (int result) {
-                                setState(() {});
-                              },
-                              itemBuilder: (BuildContext context) =>
-                                  <PopupMenuEntry<int>>[
-                                PopupMenuItem<int>(
-                                  value: 1,
+              Consumer<AllEmployeesProvider>(
+                builder: (context, provider, child) {
+                  return provider.isLoading == false
+                      ? ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: (provider.userList ?? []).length,
+                          itemBuilder: (listContext, index) {
+                            return Column(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.only(top: 10),
+                                  width: MediaQuery.of(context).size.width,
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      "Edite".s(15),
-                                      const Icon(
-                                        Icons.edit,
-                                        size: 20,
-                                      ),
+                                      "${index + 1}".s(12).c(Colors.white),
+                                      ((provider.userList ?? [])[index].name ??
+                                              "")
+                                          .s(12)
+                                          .c(Colors.white),
+                                      ((provider.userList ?? [])[index]
+                                                  .employeeYear ??
+                                              "")
+                                          .s(12)
+                                          .c(Colors.white),
+                                      ((provider.userList ?? [])[index].role ??
+                                              '')
+                                          .s(12)
+                                          .c(Colors.white),
+                                      PopupMenuButton<int>(
+                                        iconColor: Colors.white,
+                                        onSelected: (int result) {
+                                          setState(() {});
+                                        },
+                                        itemBuilder:
+                                            (BuildContext dialogContext) =>
+                                                <PopupMenuEntry<int>>[
+                                          PopupMenuItem<int>(
+                                            value: 1,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                "Edit".s(15),
+                                                const Icon(
+                                                  Icons.edit,
+                                                  size: 20,
+                                                ),
+                                              ],
+                                            ),
+                                            onTap: () async {
+                                              final success = await provider
+                                                  .getEmployeeById(
+                                                      (provider.userList ??
+                                                                  [])[index]
+                                                              .id ??
+                                                          0);
+                                              if (success) {
+                                                Navigator.of(context).push(MaterialPageRoute(
+                                                    builder: (context) => EditeEmployees(
+                                                        userModel: (provider
+                                                                    .user ??
+                                                                UserModel())
+                                                            .copyWith(
+                                                                id: (provider.userList ??
+                                                                            [])[
+                                                                        index]
+                                                                    .id))));
+                                              }
+                                            },
+                                          ),
+                                          PopupMenuItem<int>(
+                                            value: 2,
+                                            child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  "Delete".s(15),
+                                                  const Icon(
+                                                    Icons.delete,
+                                                    size: 20,
+                                                  ),
+                                                ]),
+                                            onTap: () {
+                                              showDialog(
+                                                context: context,
+                                                builder: (BuildContext
+                                                    dialogContext) {
+                                                  return AlertDialog(
+                                                    title:
+                                                        'Delete Employee'.s(18),
+                                                    content:
+                                                        'Do you want to delete employee'
+                                                            .s(16),
+                                                    actions: <Widget>[
+                                                      TextButton(
+                                                        child: 'Cancel'.s(16),
+                                                        onPressed: () {
+                                                          Navigator.of(
+                                                                  dialogContext)
+                                                              .pop();
+                                                        },
+                                                      ),
+                                                      TextButton(
+                                                        child: 'OK'.s(16),
+                                                        onPressed: () async {
+                                                          final status = await provider
+                                                              .deleteEmployeeData(
+                                                                  (provider.userList ??
+                                                                              [])[index]
+                                                                          .id ??
+                                                                      0);
+                                                          if (status) {
+                                                            Navigator.of(
+                                                                    dialogContext)
+                                                                .pop();
+                                                            context.showBeautifulSnackbar(
+                                                                message:
+                                                                    "Successfully deleted!");
+                                                            provider
+                                                                .getAllEmployees();
+                                                          } else {
+                                                            Navigator.of(
+                                                                    dialogContext)
+                                                                .pop();
+                                                            context.showBeautifulSnackbar(
+                                                                message:
+                                                                    "Something went wrong");
+                                                          }
+                                                        },
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                            },
+                                          ),
+                                        ],
+                                      )
                                     ],
                                   ),
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const EditeEmployees()));
-                                  },
                                 ),
-                                PopupMenuItem<int>(
-                                  value: 2,
-                                  child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        "Delete".s(15),
-                                        const Icon(
-                                          Icons.delete,
-                                          size: 20,
-                                        ),
-                                      ]),
-                                  onTap: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          title: 'Delete Employee'.s(18),
-                                          content:
-                                              'Do you want to delete employee'
-                                                  .s(16),
-                                          actions: <Widget>[
-                                            TextButton(
-                                              child: 'Cancel'.s(16),
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                            ),
-                                            TextButton(
-                                              child: 'OK'.s(16),
-                                              onPressed: () {
-                                                setState(() {
-                                                  employees.removeAt(index);
-                                                });
-                                                Navigator.of(context).pop();
-                                              },
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    );
-                                  },
-                                ),
+                                Divider(
+                                  color: Colors.white,
+                                )
                               ],
-                            )
-                          ],
-                        ),
-                      ),
-                      Divider(
-                        color: Colors.white,
-                      )
-                    ],
-                  );
+                            );
+                          },
+                        )
+                      : Center(
+                          child: CircularProgressIndicator(
+                            color: context.colors.onPrimary,
+                          ),
+                        );
                 },
               )
             ],

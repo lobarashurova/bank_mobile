@@ -26,8 +26,8 @@ class LoginProvider extends ChangeNotifier {
       if (response.statusCode == 200) {
         print('Login successful');
         final token = response.data;
-        storage.tokens
-            .set(Tokens(refresh: token['refresh'], access: token['access']));
+        storage.tokens.set(Tokens(
+            refresh: token['refresh_token'], access: token['access_token']));
         return true;
       } else {
         _errorMessage = 'Login failed';

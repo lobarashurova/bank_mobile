@@ -28,10 +28,11 @@ class AuthInterceptor extends QueuedInterceptor {
     if (access == null) {
       return handler.reject(DioException(requestOptions: options), true);
     }
+    print("access token $access =============\n=========");
 
-    if (JwtDecoder.isExpired(access)) {
-      access = await refreshToken(tokens.refresh!);
-    }
+    // if (JwtDecoder.isExpired(access)) {
+    //   access = await refreshToken(tokens.refresh!);
+    // }
 
     options.headers.addAll({'Authorization': 'Bearer $access'});
 

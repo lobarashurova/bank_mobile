@@ -1,10 +1,15 @@
 import 'dart:io';
 
+import 'package:bank_mobile/data/api_model/user_model/user_model.dart';
+import 'package:bank_mobile/extensions/navigation_extensions.dart';
+import 'package:bank_mobile/extensions/snackbar_extensions.dart';
 import 'package:bank_mobile/extensions/text_extensions.dart';
 import 'package:bank_mobile/extensions/theme_extensions.dart';
 import 'package:bank_mobile/extensions/widget.dart';
+import 'package:bank_mobile/presentation/main/management/employee_providers/all_employees_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../app/common/widgets/common_button.dart';
 import '../../../../app/common/widgets/common_text_filed.dart';
@@ -39,7 +44,6 @@ class _CreateEmployeeState extends State<CreateEmployee> {
       file = File(pickedImage!.path);
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -133,12 +137,34 @@ class _CreateEmployeeState extends State<CreateEmployee> {
                 controller: roleController,
               ),
               16.kh,
-              CommonButton.elevated(
-                text: "Create",
-                backgroundColor: context.colors.primary2,
-                textColor: context.colors.onPrimary,
-                onPressed: (){
-                  
+              Consumer<AllEmployeesProvider>(
+                builder: (context, provider, child) {
+                  return CommonButton.elevated(
+                    text: "Create",
+                    backgroundColor: context.colors.primary2,
+                    textColor: context.colors.onPrimary,
+                    onPressed: () async {
+                      final status = await provider.createEmployee(UserModel(
+                        name: fullNameController.text,
+                        email: emailController.text,
+                        address: addressController.text,
+                        dob: dateOfBirthdayController.text,
+                        employeeYear: employeeBecomeYearController.text,
+                        gender: genderController.text,
+                        specialist: jobController.text,
+                        username: userNameController.text,
+                        salary: "20000000",
+                      ));
+                      if (status) {
+                        context.pop();
+                      } else {
+                        context.showBeautifulSnackbar(
+                            message:
+                                provider.errorMessage ?? "Failed to create");
+                      }
+                    },
+                    loading: provider.isLoading,
+                  );
                 },
               )
             ],

@@ -343,7 +343,8 @@ class __$$UserModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class _$UserModelImpl implements _UserModel {
   const _$UserModelImpl(
       {this.id,

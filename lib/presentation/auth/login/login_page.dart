@@ -1,11 +1,12 @@
 import 'package:bank_mobile/app/common/widgets/common_button.dart';
 import 'package:bank_mobile/data/gen/assets.gen.dart';
 import 'package:bank_mobile/extensions/navigation_extensions.dart';
+import 'package:bank_mobile/extensions/snackbar_extensions.dart';
 import 'package:bank_mobile/extensions/text_extensions.dart';
 import 'package:bank_mobile/extensions/theme_extensions.dart';
 import 'package:bank_mobile/extensions/widget.dart';
 import 'package:bank_mobile/presentation/auth/login/provider/login_provider.dart';
-import 'package:bank_mobile/presentation/main/home/home_page.dart';
+import 'package:bank_mobile/presentation/main/main/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart'; // Add provider package if not added already
 
@@ -105,14 +106,10 @@ class _LoginPageState extends State<LoginPage> {
                         final success =
                             await provider.login(username, password);
                         if (success) {
-                          context.push(const HomePage());
+                          context.push(const MainPage());
                         } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content:
-                                  Text(provider.errorMessage ?? 'Login failed'),
-                            ),
-                          );
+                          context.showBeautifulSnackbar(
+                              message: provider.errorMessage ?? "Login failed");
                         }
                       }
                     },

@@ -35,7 +35,6 @@ dependencies:
   image_cropper: ^8.0.2
   flutter_screen_lock: ^9.1.0
   jwt_decoder: ^2.0.1
-
   pretty_dio_logger: ^1.4.0
 
 
