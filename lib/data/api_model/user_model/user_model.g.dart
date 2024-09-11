@@ -16,6 +16,7 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
       profilePhoto: json['profile_photo'] as String?,
       dob: json['dob'] as String?,
       phoneNumber: json['phone_number'] as String?,
+      password: json['password'] as String?,
       gender: json['gender'] as String?,
       address: json['address'] as String?,
       specialist: json['specialist'] as String?,
@@ -28,6 +29,7 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
       darkMode: (json['dark_mode'] as num?)?.toInt(),
       messengerColor: json['messenger_color'] as String?,
       refreshToken: json['refresh_token'] as String?,
+      role: json['role'] as String?,
     );
 
 Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
@@ -40,6 +42,7 @@ Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
       'profile_photo': instance.profilePhoto,
       'dob': instance.dob,
       'phone_number': instance.phoneNumber,
+      'password': instance.password,
       'gender': instance.gender,
       'address': instance.address,
       'specialist': instance.specialist,
@@ -52,4 +55,5 @@ Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
       'dark_mode': instance.darkMode,
       'messenger_color': instance.messengerColor,
       'refresh_token': instance.refreshToken,
+      'role': instance.role,
     };

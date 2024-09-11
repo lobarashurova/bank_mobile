@@ -3,13 +3,16 @@ import 'package:bank_mobile/data/storage/storage.dart';
 import 'package:bank_mobile/extensions/theme_extensions.dart';
 import 'package:bank_mobile/presentation/auth/login/login_page.dart';
 import 'package:bank_mobile/presentation/auth/login/provider/login_provider.dart';
-import 'package:bank_mobile/presentation/main/main/main_page.dart';
+import 'package:bank_mobile/presentation/main/ai/ai_provider.dart';
+import 'package:bank_mobile/presentation/main/home/providers/home_provider.dart';
+import 'package:bank_mobile/presentation/main/home/providers/news_notifier.dart';
 import 'package:bank_mobile/presentation/main/management/employee_providers/all_employees_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
+import 'presentation/main/lock/lock_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,8 +24,11 @@ Future<void> main() async {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => LoginProvider()),
     ChangeNotifierProvider(create: (context) => AllEmployeesProvider()),
+    ChangeNotifierProvider(create: (context) => HomeProvider()),
+    ChangeNotifierProvider(create: (context) => NewsProvider()),
+    ChangeNotifierProvider(create: (context) => AiProvider()),
     // ChangeNotifierProvider(create: (context) => HomeProvider()),
-  ], child: MyApp()));
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -48,12 +54,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     super.dispose();
   }
 
-  void _unlockApp() {
-    setState(() {
-      _isLocked = false;
-    });
-  }
-
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.paused) {
@@ -61,15 +61,27 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         _isLocked = true;
       });
     } else if (state == AppLifecycleState.resumed) {
-      setState(() {
-        _isLocked = true;
-      });
+      if (_isLocked) {
+        _showLockScreen();
+      }
     }
   }
+
+  void _showLockScreen() async {
+    await  navigatorKey.currentState?.push(
+      MaterialPageRoute(builder: (context) => LockScreen()),
+    );
+    setState(() {
+      _isLocked = false;
+    });
+  }
+
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       title: 'Bank Mobile',
       theme: ThemeData(
@@ -81,8 +93,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               displaySmall: TextStyle(color: context.colors.onPrimary)),
           useMaterial3: false,
           scaffoldBackgroundColor: context.colors.scaffoldColor),
-      home:
-          storage.tokens.call() == null ? const LoginPage() : const MainPage(),
+      home: storage.tokens.call() == null ? const LoginPage() : LockScreen(),
     );
   }
 }

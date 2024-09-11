@@ -37,6 +37,7 @@ class _CreateEmployeeState extends State<CreateEmployee> {
   TextEditingController genderController = TextEditingController();
   TextEditingController jobController = TextEditingController();
   TextEditingController roleController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   Future pickImageFromGallery() async {
     pickedImage = await picker.pickImage(source: ImageSource.gallery);
@@ -98,6 +99,11 @@ class _CreateEmployeeState extends State<CreateEmployee> {
               ),
               16.kh,
               CommonTextField(
+                hint: "Password",
+                controller: passwordController,
+              ),
+              16.kh,
+              CommonTextField(
                 hint: "Address",
                 controller: addressController,
               ),
@@ -145,16 +151,19 @@ class _CreateEmployeeState extends State<CreateEmployee> {
                     textColor: context.colors.onPrimary,
                     onPressed: () async {
                       final status = await provider.createEmployee(UserModel(
-                        name: fullNameController.text,
-                        email: emailController.text,
-                        address: addressController.text,
-                        dob: dateOfBirthdayController.text,
-                        employeeYear: employeeBecomeYearController.text,
-                        gender: genderController.text,
-                        specialist: jobController.text,
-                        username: userNameController.text,
-                        salary: "20000000",
-                      ));
+                          name: fullNameController.text,
+                          email: emailController.text,
+                          address: addressController.text,
+                          dob: dateOfBirthdayController.text,
+                          employeeYear: employeeBecomeYearController.text,
+                          gender: genderController.text,
+                          specialist: jobController.text,
+                          phoneNumber: phoneNumberController.text,
+                          username: userNameController.text,
+                          password: passwordController.text,
+                          salary: "20000000",
+                          role: roleController.text,
+                          profilePhoto: file?.path));
                       if (status) {
                         context.pop();
                       } else {

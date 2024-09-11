@@ -27,28 +27,12 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final provider = Provider.of<LoginProvider>(context);
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        leading: Container(
-          margin: const EdgeInsets.only(top: 10, left: 10),
-          decoration: const BoxDecoration(
-              color: Colors.yellow,
-              borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(8),
-                  bottomLeft: Radius.circular(8))),
-          padding: const EdgeInsets.all(4),
-          child: Icon(
-            Icons.arrow_back,
-            color: context.colors.primary,
-          ),
-        ),
-      ),
       body: SingleChildScrollView(
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            height: MediaQuery.of(context).size.height * 4 / 10,
+            height: MediaQuery.of(context).size.height * 5 / 10,
             child: Column(
               children: [
                 48.kh,
@@ -106,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                         final success =
                             await provider.login(username, password);
                         if (success) {
-                          context.push(const MainPage());
+                          context.pushReplacement(const MainPage());
                         } else {
                           context.showBeautifulSnackbar(
                               message: provider.errorMessage ?? "Login failed");

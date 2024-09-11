@@ -1,65 +1,38 @@
-import 'package:bank_mobile/data/api/employee_api.dart';
-import 'package:bank_mobile/data/api_model/small_user/small_user_model.dart';
-import 'package:bank_mobile/data/api_model/user_model/user_model.dart';
+import 'package:bank_mobile/data/api/news_api.dart';
+import 'package:bank_mobile/data/api_model/news_model/news_model.dart';
 import 'package:bank_mobile/data/module/injection.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-class AllEmployeesProvider extends ChangeNotifier {
-  final api = getIt<EmployeeApi>();
+class NewsProvider extends ChangeNotifier {
+  final api = getIt<NewsAPi>();
   bool _isLoading = false;
   String? _errorMessage;
-  List<SmallUserData>? _userList;
-  UserModel? _user;
+  List<NewsModel>? _newsList;
 
   bool get isLoading => _isLoading;
 
   String? get errorMessage => _errorMessage;
 
-  List<SmallUserData>? get userList => _userList;
+  List<NewsModel>? get newsList => _newsList;
 
-  UserModel? get user => _user;
-
-  Future<void> getAllEmployees() async {
+  Future<bool> getAllNews() async {
     _isLoading = true;
     _errorMessage = null;
     notifyListeners();
 
     try {
-      final response = await api.getAllEmployees();
-
+      final response = await api.getAllNews();
       if (response.statusCode == 200) {
-        print('Login successful');
-        final SmallUserModel myList =
-            SmallUserModel.fromJson(response.data as Map<String, dynamic>);
-        _userList = myList.data;
-        _isLoading = false;
-        notifyListeners();
-      } else {
-        _errorMessage = 'Login failed';
-        _isLoading = false;
-      }
-    } on DioException catch (e) {
-      _errorMessage = e.response?.data['message'] ?? 'An error occurred';
-      _isLoading = false;
-    } finally {
-      _isLoading = false;
-      notifyListeners();
-    }
-  }
-
-  Future<bool> getEmployeeById(int id) async {
-    _isLoading = true;
-    _errorMessage = null;
-    notifyListeners();
-
-    try {
-      final response = await api.getEmployee(id);
-      if (response.statusCode == 200) {
-        _user =
-            UserModel.fromJson((response.data as Map<String, dynamic>)['data']);
-        print('Login successful  ${_user?.phoneNumber}    ${_user?.name}');
+        _newsList = (response.data as List).map((e) {
+          return NewsModel(
+              id: e['id'],
+              title: e['title'],
+              text: e['description'],
+              imageUrl: "https://solutionsquad.uz/${e['image']}");
+        }).toList();
         notifyListeners();
         return true;
       } else {
@@ -75,15 +48,15 @@ class AllEmployeesProvider extends ChangeNotifier {
     return false;
   }
 
-  Future<bool> createEmployee(UserModel userModel) async {
+  Future<bool> createNews(String title, String text) async {
     _isLoading = true;
     _errorMessage = null;
     notifyListeners();
 
     try {
-      final response = await api.createEmployee(userModel);
+      final response = await api.createNews(title, text);
       if (response.statusCode == 200) {
-        print('user created successfully');
+        notifyListeners();
         return true;
       } else {
         _errorMessage = 'Login failed';
@@ -94,17 +67,20 @@ class AllEmployeesProvider extends ChangeNotifier {
       _isLoading = false;
       notifyListeners();
     }
+
     return false;
   }
 
-  Future<bool> updateEmployeeData(UserModel userModel) async {
+  Future<bool> updateNews(NewsModel model) async {
     _isLoading = true;
     _errorMessage = null;
     notifyListeners();
 
     try {
-      final response = await api.updateEmployee(userModel);
+      final response =
+          await api.updateNews(model.title, model.text, model.id ?? 0);
       if (response.statusCode == 200) {
+        notifyListeners();
         return true;
       } else {
         _errorMessage = 'Login failed';
@@ -115,17 +91,19 @@ class AllEmployeesProvider extends ChangeNotifier {
       _isLoading = false;
       notifyListeners();
     }
+
     return false;
   }
 
-  Future<bool> deleteEmployeeData(int id) async {
+  Future<bool> deleteNews(int id) async {
+    _isLoading = true;
     _errorMessage = null;
     notifyListeners();
 
     try {
-      final response = await api.deleteEmployeeData(id);
+      final response = await api.deleteNews(id);
       if (response.statusCode == 200) {
-        print('deleted successfully');
+        notifyListeners();
         return true;
       } else {
         _errorMessage = 'Login failed';
@@ -136,6 +114,7 @@ class AllEmployeesProvider extends ChangeNotifier {
       _isLoading = false;
       notifyListeners();
     }
+
     return false;
   }
 }
