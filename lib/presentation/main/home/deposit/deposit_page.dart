@@ -30,7 +30,7 @@ class _DepositPageState extends State<DepositPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             "Depositor name".s(15).c(Colors.white),
-            12.kh,
+            8.kh,
             CommonTextField(
               background: Colors.deepPurpleAccent.withOpacity(0.1),
               prefixIcon: const Icon(
@@ -43,10 +43,10 @@ class _DepositPageState extends State<DepositPage> {
               enabledBorderColor: Colors.deepPurpleAccent,
             ),
 
-            20.kh,
+            16.kh,
 
             "Deposit amount".s(15).c(Colors.white),
-            12.kh,
+            8.kh,
             CommonTextField(
               background: Colors.deepPurpleAccent.withOpacity(0.1),
               prefixIcon: const Icon(
@@ -59,9 +59,9 @@ class _DepositPageState extends State<DepositPage> {
               enabledBorderColor: Colors.deepPurpleAccent,
             ),
 
-            20.kh,
+            16.kh,
             "Duration: ".s(15).c(Colors.white),
-            5.kh,
+            8.kh,
             // CommonTextField(
             //   controller: sum,
             //   suffix: sum.text.length < 3 ? "Min. summa 1 000".s(10).c(Colors.red) : "".s(10),
@@ -84,9 +84,9 @@ class _DepositPageState extends State<DepositPage> {
                 });
               },
             ),
-            20.kh,
+            16.kh,
             "How much to take each month:".s(15).c(Colors.white),
-            12.kh,
+            8.kh,
             CommonTextField(
               background: Colors.deepPurpleAccent.withOpacity(0.1),
               prefixIcon: const Icon(
@@ -98,10 +98,10 @@ class _DepositPageState extends State<DepositPage> {
               enabled: true,
               enabledBorderColor: Colors.deepPurpleAccent,
             ),
-            20.kh,
+            16.kh,
 
             "Description".s(15).c(Colors.white),
-            12.kh,
+            8.kh,
             CommonTextField(
               maxLines: 7,
               minLines: 6,

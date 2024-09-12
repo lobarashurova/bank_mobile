@@ -56,82 +56,110 @@ class _CreateEmployeeState extends State<CreateEmployee> {
         padding: const EdgeInsets.all(10.0),
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Stack(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(1000)),
-                    child: file?.path != null
-                        ? Image.file(
-                            width: 160,
-                            height: 160,
-                            File(file!.path),
-                            fit: BoxFit.cover,
-                          )
-                        : Assets.icons.profilePng
-                            .image(width: 160, height: 160),
+                  Stack(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(1000)),
+                        child: file?.path != null
+                            ? Image.file(
+                                width: 160,
+                                height: 160,
+                                File(file!.path),
+                                fit: BoxFit.cover,
+                              )
+                            : Assets.icons.profilePng
+                                .image(width: 160, height: 160),
+                      ),
+                      Positioned(
+                          bottom: 16,
+                          right: 10,
+                          child: InkWell(
+                              onTap: () async {
+                                await pickImageFromGallery();
+                              },
+                              child: Assets.icons.edit.svg())),
+                    ],
                   ),
-                  Positioned(
-                      bottom: 16,
-                      right: 10,
-                      child: InkWell(
-                          onTap: () async {
-                            await pickImageFromGallery();
-                          },
-                          child: Assets.icons.edit.svg())),
                 ],
               ),
               16.kh,
+              "Full name".s(15).c(Colors.white),
+              8.kh,
               CommonTextField(
                 hint: "Full name",
                 controller: fullNameController,
               ),
               16.kh,
+              "Email".s(15).c(Colors.white),
+              8.kh,
+
               CommonTextField(
                 hint: "Email",
                 controller: emailController,
               ),
               16.kh,
+              "Phone number".s(15).c(Colors.white),
+              8.kh,
               CommonTextField(
                 hint: "Phone number",
                 controller: phoneNumberController,
               ),
               16.kh,
+              "Address".s(15).c(Colors.white),
+              8.kh,
               CommonTextField(
                 hint: "Address",
                 controller: addressController,
               ),
               16.kh,
+              "Employee(become year)".s(15).c(Colors.white),
+              8.kh,
               CommonTextField(
                 hint: "Employee(become year)",
                 controller: employeeBecomeYearController,
               ),
               16.kh,
+              "Salary".s(15).c(Colors.white),
+              8.kh,
               CommonTextField(
                 hint: "Salary",
                 controller: salaryController,
               ),
               16.kh,
+              "Username".s(15).c(Colors.white),
+              8.kh,
               CommonTextField(
                 hint: "Username",
                 controller: userNameController,
               ),
               16.kh,
-              CommonTextField(
+              "Date of birthday".s(15).c(Colors.white),
+              8.kh,              CommonTextField(
                 hint: "Date of birthday",
                 controller: dateOfBirthdayController,
               ),
               16.kh,
+              "Gender".s(15).c(Colors.white),
+              8.kh,
               CommonTextField(
                 hint: "Gender",
                 controller: genderController,
               ),
               16.kh,
+              "Job".s(15).c(Colors.white),
+              8.kh,
               CommonTextField(
                 hint: "Job",
                 controller: jobController,
               ),
               16.kh,
+              "Role".s(15).c(Colors.white),
+              8.kh,
               CommonTextField(
                 hint: "Role",
                 controller: roleController,

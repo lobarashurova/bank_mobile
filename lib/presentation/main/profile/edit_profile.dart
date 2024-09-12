@@ -33,24 +33,33 @@ class _EditeProfileState extends State<EditeProfile> {
           children: [
            Column(
              children: [
+
                16.kh,
+               "Full name".s(15).c(Colors.white),
+               8.kh,
                CommonTextField(
                  hint: "Full name",
                  controller: fullNameController,
                ),
                16.kh,
+               "Email".s(15).c(Colors.white),
+               8.kh,
 
                CommonTextField(
                  hint: "Email",
                  controller: emailController,
                ),
                16.kh,
+               "Phone number".s(15).c(Colors.white),
+               8.kh,
 
                CommonTextField(
                  hint: "Phone number",
                  controller: phoneNumberController,
                ),
                16.kh,
+               "Address".s(15).c(Colors.white),
+               8.kh,
 
                CommonTextField(
                  hint: "Address ",

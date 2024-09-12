@@ -29,6 +29,8 @@ class _AddRoleState extends State<AddRole> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            "Role name".s(15).c(Colors.white),
+            8.kh,
             CommonTextField(
               hint: "Role name",
               controller: roleName,
