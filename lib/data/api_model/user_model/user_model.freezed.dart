@@ -28,6 +28,7 @@ mixin _$UserModel {
   String? get profilePhoto => throw _privateConstructorUsedError;
   String? get dob => throw _privateConstructorUsedError;
   String? get phoneNumber => throw _privateConstructorUsedError;
+  String? get password => throw _privateConstructorUsedError;
   String? get gender => throw _privateConstructorUsedError;
   String? get address => throw _privateConstructorUsedError;
   String? get specialist => throw _privateConstructorUsedError;
@@ -40,6 +41,7 @@ mixin _$UserModel {
   int? get darkMode => throw _privateConstructorUsedError;
   String? get messengerColor => throw _privateConstructorUsedError;
   String? get refreshToken => throw _privateConstructorUsedError;
+  String? get role => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -61,6 +63,7 @@ abstract class $UserModelCopyWith<$Res> {
       String? profilePhoto,
       String? dob,
       String? phoneNumber,
+      String? password,
       String? gender,
       String? address,
       String? specialist,
@@ -72,7 +75,8 @@ abstract class $UserModelCopyWith<$Res> {
       String? avatar,
       int? darkMode,
       String? messengerColor,
-      String? refreshToken});
+      String? refreshToken,
+      String? role});
 }
 
 /// @nodoc
@@ -96,6 +100,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? profilePhoto = freezed,
     Object? dob = freezed,
     Object? phoneNumber = freezed,
+    Object? password = freezed,
     Object? gender = freezed,
     Object? address = freezed,
     Object? specialist = freezed,
@@ -108,6 +113,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? darkMode = freezed,
     Object? messengerColor = freezed,
     Object? refreshToken = freezed,
+    Object? role = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -142,6 +148,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String?,
+      password: freezed == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String?,
       gender: freezed == gender
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
@@ -190,6 +200,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.refreshToken
           : refreshToken // ignore: cast_nullable_to_non_nullable
               as String?,
+      role: freezed == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -211,6 +225,7 @@ abstract class _$$UserModelImplCopyWith<$Res>
       String? profilePhoto,
       String? dob,
       String? phoneNumber,
+      String? password,
       String? gender,
       String? address,
       String? specialist,
@@ -222,7 +237,8 @@ abstract class _$$UserModelImplCopyWith<$Res>
       String? avatar,
       int? darkMode,
       String? messengerColor,
-      String? refreshToken});
+      String? refreshToken,
+      String? role});
 }
 
 /// @nodoc
@@ -244,6 +260,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? profilePhoto = freezed,
     Object? dob = freezed,
     Object? phoneNumber = freezed,
+    Object? password = freezed,
     Object? gender = freezed,
     Object? address = freezed,
     Object? specialist = freezed,
@@ -256,6 +273,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? darkMode = freezed,
     Object? messengerColor = freezed,
     Object? refreshToken = freezed,
+    Object? role = freezed,
   }) {
     return _then(_$UserModelImpl(
       id: freezed == id
@@ -290,6 +308,10 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String?,
+      password: freezed == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String?,
       gender: freezed == gender
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
@@ -338,6 +360,10 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.refreshToken
           : refreshToken // ignore: cast_nullable_to_non_nullable
               as String?,
+      role: freezed == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -355,6 +381,7 @@ class _$UserModelImpl implements _UserModel {
       this.profilePhoto,
       this.dob,
       this.phoneNumber,
+      this.password,
       this.gender,
       this.address,
       this.specialist,
@@ -366,7 +393,8 @@ class _$UserModelImpl implements _UserModel {
       this.avatar,
       this.darkMode,
       this.messengerColor,
-      this.refreshToken});
+      this.refreshToken,
+      this.role});
 
   factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserModelImplFromJson(json);
@@ -387,6 +415,8 @@ class _$UserModelImpl implements _UserModel {
   final String? dob;
   @override
   final String? phoneNumber;
+  @override
+  final String? password;
   @override
   final String? gender;
   @override
@@ -411,10 +441,12 @@ class _$UserModelImpl implements _UserModel {
   final String? messengerColor;
   @override
   final String? refreshToken;
+  @override
+  final String? role;
 
   @override
   String toString() {
-    return 'UserModel(id: $id, name: $name, email: $email, username: $username, emailVerifiedAt: $emailVerifiedAt, profilePhoto: $profilePhoto, dob: $dob, phoneNumber: $phoneNumber, gender: $gender, address: $address, specialist: $specialist, employeeYear: $employeeYear, salary: $salary, createdAt: $createdAt, updatedAt: $updatedAt, activeStatus: $activeStatus, avatar: $avatar, darkMode: $darkMode, messengerColor: $messengerColor, refreshToken: $refreshToken)';
+    return 'UserModel(id: $id, name: $name, email: $email, username: $username, emailVerifiedAt: $emailVerifiedAt, profilePhoto: $profilePhoto, dob: $dob, phoneNumber: $phoneNumber, password: $password, gender: $gender, address: $address, specialist: $specialist, employeeYear: $employeeYear, salary: $salary, createdAt: $createdAt, updatedAt: $updatedAt, activeStatus: $activeStatus, avatar: $avatar, darkMode: $darkMode, messengerColor: $messengerColor, refreshToken: $refreshToken, role: $role)';
   }
 
   @override
@@ -434,6 +466,8 @@ class _$UserModelImpl implements _UserModel {
             (identical(other.dob, dob) || other.dob == dob) &&
             (identical(other.phoneNumber, phoneNumber) ||
                 other.phoneNumber == phoneNumber) &&
+            (identical(other.password, password) ||
+                other.password == password) &&
             (identical(other.gender, gender) || other.gender == gender) &&
             (identical(other.address, address) || other.address == address) &&
             (identical(other.specialist, specialist) ||
@@ -453,7 +487,8 @@ class _$UserModelImpl implements _UserModel {
             (identical(other.messengerColor, messengerColor) ||
                 other.messengerColor == messengerColor) &&
             (identical(other.refreshToken, refreshToken) ||
-                other.refreshToken == refreshToken));
+                other.refreshToken == refreshToken) &&
+            (identical(other.role, role) || other.role == role));
   }
 
   @JsonKey(ignore: true)
@@ -468,6 +503,7 @@ class _$UserModelImpl implements _UserModel {
         profilePhoto,
         dob,
         phoneNumber,
+        password,
         gender,
         address,
         specialist,
@@ -479,7 +515,8 @@ class _$UserModelImpl implements _UserModel {
         avatar,
         darkMode,
         messengerColor,
-        refreshToken
+        refreshToken,
+        role
       ]);
 
   @JsonKey(ignore: true)
@@ -506,6 +543,7 @@ abstract class _UserModel implements UserModel {
       final String? profilePhoto,
       final String? dob,
       final String? phoneNumber,
+      final String? password,
       final String? gender,
       final String? address,
       final String? specialist,
@@ -517,7 +555,8 @@ abstract class _UserModel implements UserModel {
       final String? avatar,
       final int? darkMode,
       final String? messengerColor,
-      final String? refreshToken}) = _$UserModelImpl;
+      final String? refreshToken,
+      final String? role}) = _$UserModelImpl;
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
       _$UserModelImpl.fromJson;
@@ -538,6 +577,8 @@ abstract class _UserModel implements UserModel {
   String? get dob;
   @override
   String? get phoneNumber;
+  @override
+  String? get password;
   @override
   String? get gender;
   @override
@@ -562,6 +603,8 @@ abstract class _UserModel implements UserModel {
   String? get messengerColor;
   @override
   String? get refreshToken;
+  @override
+  String? get role;
   @override
   @JsonKey(ignore: true)
   _$$UserModelImplCopyWith<_$UserModelImpl> get copyWith =>

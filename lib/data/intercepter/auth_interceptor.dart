@@ -16,10 +16,8 @@ class AuthInterceptor extends QueuedInterceptor {
   AuthInterceptor(this._storage, this.log);
 
   @override
-  void onRequest(
-    RequestOptions options,
-    RequestInterceptorHandler handler,
-  ) async {
+  void onRequest(RequestOptions options,
+      RequestInterceptorHandler handler,) async {
     final tokens = _storage.tokens.call();
 
     if (tokens == null) return handler.next(options);
@@ -42,9 +40,11 @@ class AuthInterceptor extends QueuedInterceptor {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
     if (err.response?.statusCode == 401) {
-      await _storage.tokens.set(null);
+      await refreshToken(_storage.tokens
+          .call()
+          ?.refresh ?? "");
+
     }
-    return handler.next(err);
   }
 
   Future<String?> refreshToken(String refresh) async {
@@ -54,7 +54,7 @@ class AuthInterceptor extends QueuedInterceptor {
 
       final request = {'refresh': refresh};
       final response =
-          await dio.post('refresh-token', data: request);
+      await dio.post('refresh-token', data: request);
 
       final tokens = Tokens(refresh: refresh, access: response.data['access']);
       await _storage.tokens.set(tokens);

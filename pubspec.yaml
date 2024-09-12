@@ -20,6 +20,7 @@ dependencies:
   lottie: ^3.1.0
   google_fonts: any
   provider: ^6.1.2
+  local_auth: ^2.3.0
   mask_text_input_formatter: ^2.9.0
   flutter_svg: any
   pinput: ^4.0.0
@@ -35,6 +36,7 @@ dependencies:
   image_cropper: ^8.0.2
   flutter_screen_lock: ^9.1.0
   jwt_decoder: ^2.0.1
+  html: ^0.15.0
   pretty_dio_logger: ^1.4.0
 
 

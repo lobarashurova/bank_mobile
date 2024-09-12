@@ -57,9 +57,10 @@ class _EditeEmployeesState extends State<EditeEmployees> {
     addressController.text = widget.userModel.address ?? "";
     genderController.text = widget.userModel.gender ?? "";
     dateOfBirthdayController.text = widget.userModel.dob ?? "";
-    roleController.text = widget.userModel.specialist ?? "";
+    roleController.text = widget.userModel.role ?? "";
     jobController.text = widget.userModel.specialist ?? "";
     salaryController.text = widget.userModel.salary ?? "";
+    employeeBecomeYearController.text = widget.userModel.employeeYear ?? "";
     super.initState();
   }
 
@@ -73,56 +74,52 @@ class _EditeEmployeesState extends State<EditeEmployees> {
         padding: const EdgeInsets.all(10.0),
         child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              Stack(
                 children: [
-                  Stack(
-                    children: [
-                      widget.userModel.profilePhoto == null
-                          ? ClipRRect(
-                              borderRadius: BorderRadius.all(Radius.circular(1000)),
-                              child: file?.path != null
-                                  ? Image.file(
-                                      width: 160,
-                                      height: 160,
-                                      File(file!.path),
-                                      fit: BoxFit.cover,
-                                    )
-                                  : Assets.icons.profilePng
-                                      .image(width: 160, height: 160),
-                            )
-                          : CachedNetworkImage(
-                              imageUrl: widget.userModel.profilePhoto!,
-                              progressIndicatorBuilder:
-                                  (context, url, downloadProgress) => Assets
-                                      .icons.profilePng
-                                      .image(width: 160, height: 160),
-                              errorWidget: (context, url, error) =>
-                                  Icon(Icons.error),
-                              imageBuilder: (context, imageProvider) => Container(
-                                width: 160,
-                                height: 160,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                    image: imageProvider,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
+                  widget.userModel.profilePhoto == null
+                      ? ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(1000)),
+                    child: file?.path != null
+                        ? Image.file(
+                      width: 160,
+                      height: 160,
+                      File(file!.path),
+                      fit: BoxFit.cover,
+                    )
+                        : Assets.icons.profilePng
+                        .image(width: 160, height: 160),
+                  )
+                      : CachedNetworkImage(
+                    imageUrl: widget.userModel.profilePhoto!,
+                    progressIndicatorBuilder:
+                        (context, url, downloadProgress) =>
+                        Assets
+                            .icons.profilePng
+                            .image(width: 160, height: 160),
+                    errorWidget: (context, url, error) =>
+                        Icon(Icons.error),
+                    imageBuilder: (context, imageProvider) =>
+                        Container(
+                          width: 160,
+                          height: 160,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
                             ),
-                      Positioned(
-                          bottom: 16,
-                          right: 10,
-                          child: InkWell(
-                              onTap: () async {
-                                await pickImageFromGallery();
-                              },
-                              child: Assets.icons.edit.svg())),
-                    ],
+                          ),
+                        ),
                   ),
+                  Positioned(
+                      bottom: 16,
+                      right: 10,
+                      child: InkWell(
+                          onTap: () async {
+                            await pickImageFromGallery();
+                          },
+                          child: Assets.icons.edit.svg())),
                 ],
               ),
               16.kh,
@@ -212,7 +209,7 @@ class _EditeEmployeesState extends State<EditeEmployees> {
                     onPressed: () async {
                       print(": idd    ${widget.userModel.id}");
                       final status =
-                          await provider.updateEmployeeData(UserModel(
+                      await provider.updateEmployeeData(UserModel(
                         id: widget.userModel.id,
                         name: fullNameController.text,
                         email: emailController.text,
@@ -220,7 +217,8 @@ class _EditeEmployeesState extends State<EditeEmployees> {
                         dob: dateOfBirthdayController.text,
                         phoneNumber: phoneNumberController.text,
                         salary: salaryController.text,
-
+                        role: roleController.text,
+                        password: widget.userModel.password,
                         employeeYear: employeeBecomeYearController.text,
                         gender: genderController.text,
                         specialist: jobController.text,

@@ -26,5 +26,5 @@ class Storage {
 
   BaseStorage<bool>? get isDark => BaseStorage(_box, "isDark");
 
-  BaseStorage<String> get deviceToken => BaseStorage(_box, 'device_token');
+  BaseStorage<String> get role => BaseStorage(_box, 'role');
 }

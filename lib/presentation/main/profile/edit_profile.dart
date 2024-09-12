@@ -6,9 +6,12 @@ import 'package:flutter/material.dart';
 
 import '../../../app/common/widgets/common_button.dart';
 import '../../../app/common/widgets/common_text_filed.dart';
+import '../../../data/api_model/user_model/user_model.dart';
 
 class EditeProfile extends StatefulWidget {
-  const EditeProfile({super.key});
+  const EditeProfile({super.key, required this.userModel});
+
+  final UserModel userModel;
 
   @override
   State<EditeProfile> createState() => _EditeProfileState();
@@ -19,6 +22,16 @@ class _EditeProfileState extends State<EditeProfile> {
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController addressController = TextEditingController();
+
+  @override
+  void initState() {
+    fullNameController.text = widget.userModel.username ?? "";
+    phoneNumberController.text = widget.userModel.phoneNumber ?? "";
+    emailController.text = widget.userModel.email ?? "";
+    addressController.text = widget.userModel.address ?? "";
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,6 +44,36 @@ class _EditeProfileState extends State<EditeProfile> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            Column(
+              children: [
+                16.kh,
+                CommonTextField(
+                  hint: "Full name",
+                  controller: fullNameController,
+                ),
+                16.kh,
+                CommonTextField(
+                  hint: "Email",
+                  controller: emailController,
+                ),
+                16.kh,
+                CommonTextField(
+                  hint: "Phone number",
+                  controller: phoneNumberController,
+                ),
+                16.kh,
+                CommonTextField(
+                  hint: "Address ",
+                  controller: addressController,
+                ),
+                16.kh,
+              ],
+            ),
+            CommonButton.elevated(
+              text: "Edit",
+              backgroundColor: context.colors.primary2,
+              textColor: context.colors.onPrimary,
+            )
            Column(
              children: [
 

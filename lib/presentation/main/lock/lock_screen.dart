@@ -1,9 +1,11 @@
 import 'package:bank_mobile/extensions/navigation_extensions.dart';
 import 'package:bank_mobile/extensions/text_extensions.dart';
 import 'package:bank_mobile/extensions/theme_extensions.dart';
-import 'package:bank_mobile/presentation/main/home/home_page.dart';
+import 'package:bank_mobile/presentation/main/main/main_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:local_auth/local_auth.dart';
 
 class LockScreen extends StatefulWidget {
   @override
@@ -12,7 +14,13 @@ class LockScreen extends StatefulWidget {
 
 class _LockScreenState extends State<LockScreen> {
   String _enteredPin = '';
-  final String _correctPin = '1234'; // Replace with the actual PIN
+  final String _correctPin = '1234';
+  _SupportState _supportState = _SupportState.unknown;
+  bool? _canCheckBiometrics;
+  List<BiometricType>? _availableBiometrics;
+  String _authorized = 'Not Authorized';
+  bool _isAuthenticating = false;
+  final LocalAuthentication auth = LocalAuthentication();
 
   void _onNumberPressed(String number) {
     if (_enteredPin.length < 4) {
@@ -24,6 +32,151 @@ class _LockScreenState extends State<LockScreen> {
         _validatePin();
       }
     }
+  }
+
+  Future<void> _checkBiometrics() async {
+    late bool canCheckBiometrics;
+    try {
+      canCheckBiometrics = await auth.canCheckBiometrics;
+    } on PlatformException catch (e) {
+      canCheckBiometrics = false;
+      print(e);
+    }
+    if (!mounted) {
+      return;
+    }
+    Future<void> _getAvailableBiometrics() async {
+      late List<BiometricType> availableBiometrics;
+      try {
+        availableBiometrics = await auth.getAvailableBiometrics();
+      } on PlatformException catch (e) {
+        availableBiometrics = <BiometricType>[];
+        print(e);
+      }
+      if (!mounted) {
+        return;
+      }
+
+      setState(() {
+        _availableBiometrics = availableBiometrics;
+      });
+    }
+
+    Future<void> _authenticate() async {
+      bool authenticated = false;
+      try {
+        setState(() {
+          _isAuthenticating = true;
+          _authorized = 'Authenticating';
+        });
+        authenticated = await auth.authenticate(
+          localizedReason: 'Let OS determine authentication method',
+          options: const AuthenticationOptions(
+            stickyAuth: true,
+          ),
+        );
+        setState(() {
+          _isAuthenticating = false;
+        });
+      } on PlatformException catch (e) {
+        print(e);
+        setState(() {
+          _isAuthenticating = false;
+          _authorized = 'Error - ${e.message}';
+        });
+        return;
+      }
+      if (!mounted) {
+        return;
+      }
+
+      setState(
+          () => _authorized = authenticated ? 'Authorized' : 'Not Authorized');
+    }
+
+    setState(() {
+      _canCheckBiometrics = canCheckBiometrics;
+    });
+  }
+
+  Future<void> _authenticate() async {
+    bool authenticated = false;
+    try {
+      setState(() {
+        _isAuthenticating = true;
+        _authorized = 'Authenticating';
+      });
+      authenticated = await auth.authenticate(
+        localizedReason: 'Let OS determine authentication method',
+        options: const AuthenticationOptions(
+          stickyAuth: true,
+        ),
+      );
+      setState(() {
+        _isAuthenticating = false;
+      });
+    } on PlatformException catch (e) {
+      print(e);
+      setState(() {
+        _isAuthenticating = false;
+        _authorized = 'Error - ${e.message}';
+      });
+      return;
+    }
+    if (!mounted) {
+      return;
+    }
+
+    setState(
+        () => _authorized = authenticated ? 'Authorized' : 'Not Authorized');
+  }
+
+  Future<void> _authenticateWithBiometrics() async {
+    bool authenticated = false;
+    try {
+      setState(() {
+        _isAuthenticating = true;
+        _authorized = 'Authenticating';
+      });
+      authenticated = await auth.authenticate(
+        localizedReason:
+            'Scan your fingerprint (or face or whatever) to authenticate',
+        options: const AuthenticationOptions(
+          stickyAuth: true,
+          biometricOnly: true,
+        ),
+      );
+      setState(() {
+        _isAuthenticating = false;
+        _authorized = 'Authenticating';
+      });
+    } on PlatformException catch (e) {
+      print("ERROR : $e");
+      setState(() {
+        _isAuthenticating = false;
+        _authorized = 'Error - ${e.message}';
+      });
+      return;
+    }
+    if (!mounted) {
+      return;
+    }
+
+    final String message = authenticated ? 'Authorized' : 'Not Authorized';
+    setState(() {
+      print("message : $message");
+      _authorized = message;
+    });
+  }
+
+  @override
+  void initState() {
+    auth.isDeviceSupported().then(
+          (bool isSupported) => setState(() => _supportState = isSupported
+              ? _SupportState.supported
+              : _SupportState.unsupported),
+        );
+    super.initState();
   }
 
   void _onDeletePressed() {
@@ -39,7 +192,7 @@ class _LockScreenState extends State<LockScreen> {
       setState(() {
         _enteredPin = '';
       });
-      context.pushReplacement(HomePage());
+      context.pushReplacement(MainPage());
     } else {
       setState(() {
         _enteredPin = '';
@@ -72,7 +225,7 @@ class _LockScreenState extends State<LockScreen> {
             Spacer(),
             "Welcome to our bank system!"
                 .s(24)
-            .a(TextAlign.center)
+                .a(TextAlign.center)
                 .w(600)
                 .c(context.colors.onPrimary),
             Spacer(),
@@ -110,7 +263,7 @@ class _LockScreenState extends State<LockScreen> {
               }),
             ),
             SizedBox(height: 40),
-            _buildNumberPad(),
+            _buildNumberPad(context),
             Spacer(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -128,7 +281,7 @@ class _LockScreenState extends State<LockScreen> {
     );
   }
 
-  Widget _buildNumberPad() {
+  Widget _buildNumberPad(BuildContext context) {
     return Column(
       children: [
         Row(
@@ -155,7 +308,27 @@ class _LockScreenState extends State<LockScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _buildEmptyButton(),
+            ElevatedButton(
+              onPressed: () async {
+                _checkBiometrics();
+                _authenticate();
+                await _authenticateWithBiometrics();
+
+                if (_authorized == "Authorized") {
+                  print("Sucesssssssss");
+                  context.push(MainPage());
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                shape: CircleBorder(),
+                padding: EdgeInsets.all(20),
+                backgroundColor: Colors.blueGrey, // Background color
+              ),
+              child: Icon(
+                Icons.fingerprint,
+                color: Colors.white,
+              ),
+            ),
             _buildNumberButton('0'),
             _buildDeleteButton(),
           ],
@@ -194,11 +367,10 @@ class _LockScreenState extends State<LockScreen> {
       ),
     );
   }
+}
 
-  Widget _buildEmptyButton() {
-    return SizedBox(
-      width: 70,
-      height: 70,
-    );
-  }
+enum _SupportState {
+  unknown,
+  supported,
+  unsupported,
 }

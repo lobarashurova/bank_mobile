@@ -2,9 +2,11 @@ import 'package:bank_mobile/extensions/navigation_extensions.dart';
 import 'package:bank_mobile/extensions/text_extensions.dart';
 import 'package:bank_mobile/extensions/theme_extensions.dart';
 import 'package:bank_mobile/extensions/widget.dart';
+import 'package:bank_mobile/presentation/main/home/providers/home_provider.dart';
 import 'package:bank_mobile/presentation/main/management/permissions/permissions_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../app/common/widgets/common_text_filed.dart';
 
@@ -22,6 +24,14 @@ class _RoleInfoState extends State<RoleInfo> {
   TextEditingController roleNameController = TextEditingController();
 
   @override
+  void initState() {
+    Future.microtask(() {
+      Provider.of<HomeProvider>(context, listen: false).getAllRoles();
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -33,7 +43,7 @@ class _RoleInfoState extends State<RoleInfo> {
                     context: context,
                     builder: (context) {
                       return CupertinoAlertDialog(
-                        title: "Edit role".s(20).w(600),
+                        title: "Add role".s(20).w(600),
                         actions: [
                           CupertinoDialogAction(
                             isDestructiveAction: false,
@@ -85,45 +95,70 @@ class _RoleInfoState extends State<RoleInfo> {
                 background: context.colors.grey.withOpacity(0.4),
               ),
               20.kh,
-              ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: roles.length,
-                  itemBuilder: (context, index) {
-                    return Dismissible(
-                      key: Key(roles[index]),
-                      background: Container(
-                        color: Colors.red,
-                        alignment: Alignment.centerLeft,
-                        padding: EdgeInsets.only(left: 20.0),
-                        child: Icon(Icons.delete, color: Colors.white),
-                      ),
-                      secondaryBackground: Container(
-                        color: context.colors.greenHeadline,
-                        alignment: Alignment.centerRight,
-                        padding: EdgeInsets.only(right: 20.0),
-                        child: Icon(Icons.edit, color: Colors.white),
-                      ),
-                      onDismissed: (direction) {
-                        if (direction == DismissDirection.startToEnd) {
-                          setState(() {
-                            roles.removeAt(index);
-                          });
-                        }
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Item dismissed')),
+              Consumer<HomeProvider>(
+                builder: (context, provider, child) {
+                  return provider.isLoading == false
+                      ? ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: (provider.roleModel ?? []).length,
+                          itemBuilder: (context, index) {
+                            return Dismissible(
+                              key: Key(roles[index]),
+                              background: Container(
+                                color: Colors.red,
+                                alignment: Alignment.centerLeft,
+                                padding: EdgeInsets.only(left: 20.0),
+                                child: Icon(Icons.delete, color: Colors.white),
+                              ),
+                              secondaryBackground: Container(
+                                color: context.colors.greenHeadline,
+                                alignment: Alignment.centerRight,
+                                padding: EdgeInsets.only(right: 20.0),
+                                child: Icon(Icons.edit, color: Colors.white),
+                              ),
+                              onDismissed: (direction) {
+                                if (direction == DismissDirection.startToEnd) {
+                                  setState(() {
+                                    roles.removeAt(index);
+                                  });
+                                }
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text('Item dismissed')),
+                                );
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 10),
+                                child: ListTile(
+                                  contentPadding: EdgeInsets.zero,
+                                  leading: (index + 1)
+                                      .toString()
+                                      .s(15)
+                                      .c(Colors.white),
+                                  title: (provider.roleModel?[index].name ?? "")
+                                      .s(16)
+                                      .c(Colors.white),
+                                  onTap: () {
+                                    context.push(PermissionsPage());
+                                  },
+                                ),
+                              ),
+                            );
+                          })
+                      : Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height * 0.8,
+                          child: Stack(
+                            children: [
+                              Align(
+                                alignment: Alignment.center,
+                                child: CircularProgressIndicator(),
+                              )
+                            ],
+                          ),
                         );
-                      },
-                      child: ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        leading: (index + 1).toString().s(15).c(Colors.white),
-                        title: roles[index].s(16).c(Colors.white),
-                        onTap: () {
-                          context.push(PermissionsPage());
-                        },
-                      ),
-                    );
-                  })
+                },
+              )
             ],
           ),
         ),

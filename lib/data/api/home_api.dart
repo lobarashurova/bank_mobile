@@ -22,4 +22,8 @@ class HomeApi {
   Future<Response> getProductById(int id) {
     return _dio.post('catalog/getProductById/', data: {"product_id": id});
   }
+
+  Future<Response> postQuestion(String text) {
+    return _dio.post("ai-assistant", data: {'prompt': text});
+  }
 }
