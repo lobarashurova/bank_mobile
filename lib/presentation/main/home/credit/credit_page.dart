@@ -30,7 +30,7 @@ class _CreditPageState extends State<CreditPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             "Borrower".s(15).c(Colors.white),
-            12.kh,
+            8.kh,
             CommonTextField(
               background: Colors.deepPurpleAccent.withOpacity(0.1),
               prefixIcon: const Icon(
@@ -43,10 +43,10 @@ class _CreditPageState extends State<CreditPage> {
               enabledBorderColor: Colors.deepPurpleAccent,
             ),
 
-            20.kh,
+            16.kh,
 
             "Amount".s(15).c(Colors.white),
-            12.kh,
+            8.kh,
             CommonTextField(
               background: Colors.deepPurpleAccent.withOpacity(0.1),
               prefixIcon: const Icon(
@@ -59,7 +59,7 @@ class _CreditPageState extends State<CreditPage> {
               enabledBorderColor: Colors.deepPurpleAccent,
             ),
 
-            20.kh,
+            16.kh,
             "Duration: ".s(15).c(Colors.white),
             5.kh,
             // CommonTextField(

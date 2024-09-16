@@ -33,6 +33,8 @@ class _PermissionsPageState extends State<PermissionsPage> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
+              "Role name".s(15).c(Colors.white),
+              8.kh,
               CommonTextField(
                 hint: "role name",
               ),

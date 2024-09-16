@@ -23,7 +23,7 @@ class _PaymentPageState extends State<PaymentPage> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         centerTitle: true,
-        title: "Transfer to card".s(20),
+        title: "Transfer to card".s(16),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -31,7 +31,7 @@ class _PaymentPageState extends State<PaymentPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             "Recipient's account number".s(15).c(Colors.white),
-            12.kh,
+            8.kh,
              CommonTextField(
                controller: cardNumber,
               background: Colors.deepPurpleAccent.withOpacity(0.1),
@@ -45,7 +45,7 @@ class _PaymentPageState extends State<PaymentPage> {
 
 
             "Recipient's name".s(15).c(Colors.white),
-            12.kh,
+            8.kh,
              CommonTextField(
                controller: name,
               background: Colors.deepPurpleAccent.withOpacity(0.1),
@@ -55,9 +55,9 @@ class _PaymentPageState extends State<PaymentPage> {
               enabled: true,
               enabledBorderColor: Colors.deepPurpleAccent,
             ),
-            20.kh,
+            16.kh,
             "Summa: ".s(15).c(Colors.white),
-            5.kh,
+            8.kh,
             CommonTextField(
               controller: sum,
               suffix: sum.text.length < 3 ? "Min. summa 1 000".s(10).c(Colors.red) : "".s(10),
@@ -65,7 +65,7 @@ class _PaymentPageState extends State<PaymentPage> {
               prefixIcon: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                   decoration: const BoxDecoration(color: Colors.black12,borderRadius: BorderRadius.all(Radius.circular(5))),
-                  child: "UZS".s(12).c(Colors.grey)
+                  child: "UZS".s(8).c(Colors.grey)
               ),
               hint: "0.00",
 
@@ -74,9 +74,9 @@ class _PaymentPageState extends State<PaymentPage> {
 
               keyboardType: TextInputType.number,
             ),
-            20.kh,
+            16.kh,
             "Note to recipient".s(15).c(Colors.white),
-            12.kh,
+            8.kh,
              CommonTextField(
                maxLines: 7,
                minLines: 6,
