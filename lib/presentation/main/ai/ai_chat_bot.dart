@@ -1,4 +1,3 @@
-import 'package:animations/animations.dart';
 import 'package:bank_mobile/extensions/theme_extensions.dart';
 import 'package:bank_mobile/presentation/main/ai/ai_model.dart';
 import 'package:bank_mobile/presentation/main/ai/ai_provider.dart';
@@ -28,77 +27,45 @@ class _AiChatBotState extends State<AiChatBot> {
           elevation: 0,
           automaticallyImplyLeading: false,
           backgroundColor: const Color(0xff47555E),
-          title: OpenContainer(
-            clipBehavior: Clip.none,
-            closedColor: const Color(0xff47555E),
-            closedElevation: 0,
-            openShape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            closedShape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            transitionDuration: const Duration(milliseconds: 500),
-            transitionType: ContainerTransitionType.fade,
-            closedBuilder: (context, action) => SizedBox(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  InkWell(
-                      borderRadius: BorderRadius.circular(15),
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: SizedBox(
-                        height: width * .1,
-                        width: width * .08,
-                        child: currentPlatform == TargetPlatform.android
-                            ? const Icon(
-                                Icons.arrow_back,
-                                color: false ? Colors.white : Colors.white,
-                              )
-                            : const Icon(
-                                Icons.arrow_back_ios,
-                                color: false ? Colors.white : Colors.white,
-                              ),
-                      )),
-                  Row(
-                    children: [
-                      CircleAvatar(
-                        radius: height * .025,
-                        backgroundImage: const NetworkImage(
-                            "https://avatars.mds.yandex.net/i?id=24369d58b06b88a6bffe77a2da0dd0e71de70af1-9858868-images-thumbs&n=13"),
+          leading: InkWell(
+              borderRadius: BorderRadius.circular(15),
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: SizedBox(
+                height: width * .1,
+                width: width * .08,
+                child: currentPlatform == TargetPlatform.android
+                    ? const Icon(
+                        Icons.arrow_back,
+                        color: false ? Colors.white : Colors.white,
+                      )
+                    : const Icon(
+                        Icons.arrow_back_ios,
+                        color: false ? Colors.white : Colors.white,
                       ),
-                      const SizedBox(
-                        width: 15,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: width * 0.45,
-                            child: const Text(
-                              "Ai chatBot",
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 17),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 4,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
+              )),
+          title: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircleAvatar(
+                radius: height * .025,
+                backgroundImage: const NetworkImage(
+                    "https://avatars.mds.yandex.net/i?id=24369d58b06b88a6bffe77a2da0dd0e71de70af1-9858868-images-thumbs&n=13"),
               ),
-            ),
-            openBuilder: (BuildContext context,
-                void Function({Object? returnValue}) action) {
-              return Container();
-            },
+              const SizedBox(
+                width: 15,
+              ),
+              const Text(
+                "Ai chatBot",
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 17),
+              ),
+            ],
           )),
       body: Column(
         children: [

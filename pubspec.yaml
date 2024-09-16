@@ -38,6 +38,9 @@ dependencies:
   jwt_decoder: ^2.0.1
   html: ^0.15.0
   pretty_dio_logger: ^1.4.0
+  url_launcher: ^6.3.0
+  intl: ^0.19.0
+  flutter_launcher_icons: ^0.13.1
 
 
 dev_dependencies:
@@ -71,3 +74,9 @@ flutter_gen:
   output: lib/data/gen
   integrations:
     flutter_svg: true
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  image_path: 'assets/icons/logo.png'

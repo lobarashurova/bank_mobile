@@ -84,4 +84,18 @@ class EmployeeApi {
   Future<Response> getUser() {
     return _dio.get('get-user');
   }
+
+
+  Future<Response> updateProfile(UserModel userModel) {
+    return _dio.post('update-profile/${userModel.id}',
+        options: Options(
+          contentType: Headers.formUrlEncodedContentType,
+        ),
+        data: {
+          'name': userModel.name,
+          'email': userModel.email,
+          'address': userModel.address,
+          'phone_number': userModel.phoneNumber,
+        });
+  }
 }

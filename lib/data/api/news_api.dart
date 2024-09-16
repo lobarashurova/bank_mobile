@@ -27,9 +27,19 @@ class NewsAPi {
         data: {'title': title, 'text': text});
   }
 
+
+
   Future<Response> deleteNews(int id) {
     return _dio.post(
       'delete-news/$id',
     );
+  }
+
+  Future<Response> searchUsers(String query) {
+    return _dio.post('search-users',
+        data: {'query': query},
+        options: Options(
+          contentType: Headers.formUrlEncodedContentType,
+        ));
   }
 }

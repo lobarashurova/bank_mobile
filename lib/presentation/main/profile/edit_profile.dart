@@ -1,8 +1,12 @@
 import 'package:bank_mobile/data/api_model/user_model/user_model.dart';
+import 'package:bank_mobile/extensions/navigation_extensions.dart';
+import 'package:bank_mobile/extensions/snackbar_extensions.dart';
 import 'package:bank_mobile/extensions/text_extensions.dart';
 import 'package:bank_mobile/extensions/theme_extensions.dart';
 import 'package:bank_mobile/extensions/widget.dart';
+import 'package:bank_mobile/presentation/main/home/providers/home_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../app/common/widgets/common_button.dart';
 import '../../../app/common/widgets/common_text_filed.dart';
@@ -24,7 +28,7 @@ class _EditeProfileState extends State<EditeProfile> {
 
   @override
   void initState() {
-    fullNameController.text = widget.userModel.username ?? "";
+    fullNameController.text = widget.userModel.name ?? "";
     phoneNumberController.text = widget.userModel.phoneNumber ?? "";
     emailController.text = widget.userModel.email ?? "";
     addressController.text = widget.userModel.address ?? "";
@@ -33,6 +37,7 @@ class _EditeProfileState extends State<EditeProfile> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<HomeProvider>(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -72,6 +77,22 @@ class _EditeProfileState extends State<EditeProfile> {
               text: "Edit",
               backgroundColor: context.colors.primary2,
               textColor: context.colors.onPrimary,
+              onPressed: () async {
+                final status = await provider.updateProfile(UserModel(
+                    id: widget.userModel.id,
+                    name: fullNameController.text,
+                    email: emailController.text,
+                    address: addressController.text,
+                    phoneNumber: phoneNumberController.text));
+                if (status) {
+                  context.pop();
+                } else {
+                  context.showBeautifulSnackbar(
+                      message:
+                          provider.errorMessage ?? "Failed to update data");
+                }
+              },
+              loading: provider.isLoading,
             )
           ],
         ),

@@ -1,10 +1,13 @@
-import 'package:bank_mobile/app/common/widgets/base_app_bar.dart';
+import 'package:bank_mobile/data/api_model/meeting_model/meeting_model.dart';
 import 'package:bank_mobile/extensions/text_extensions.dart';
-import 'package:bank_mobile/extensions/widget.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class EditMeetings extends StatefulWidget {
-  const EditMeetings({super.key});
+  const EditMeetings({super.key, required this.meetingModel});
+
+  final MeetingData meetingModel;
 
   @override
   State<EditMeetings> createState() => _EditMeetingsState();
@@ -15,8 +18,9 @@ class _EditMeetingsState extends State<EditMeetings> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: "Edit meeting".s(16),
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.check))],
+        title: "View meeting".s(16),
+        centerTitle: true,
+        // actions: [IconButton(onPressed: () {}, icon: Icon(Icons.check))],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -33,11 +37,9 @@ class _EditMeetingsState extends State<EditMeetings> {
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                    child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                      child: "muhibbilayeva@gamil.com".s(18).c(Colors.white),
-                    ),
+                    child: "${widget.meetingModel.hostEmail}"
+                        .s(18)
+                        .c(Colors.white),
                   ),
                 ]),
                 TableRow(children: [
@@ -47,7 +49,9 @@ class _EditMeetingsState extends State<EditMeetings> {
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                    child: "muhibbilayeva@gamil.com".s(18).c(Colors.white),
+                    child: "${widget.meetingModel.pstnPassword}"
+                        .s(18)
+                        .c(Colors.white),
                   ),
                 ]),
                 TableRow(children: [
@@ -57,7 +61,8 @@ class _EditMeetingsState extends State<EditMeetings> {
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                    child: "muhibbilayeva@gamil.com".s(18).c(Colors.white),
+                    child:
+                        "${widget.meetingModel.agenda}".s(18).c(Colors.white),
                   ),
                 ]),
                 TableRow(children: [
@@ -67,7 +72,11 @@ class _EditMeetingsState extends State<EditMeetings> {
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                    child: "2024-08-30Tz".s(18).c(Colors.white),
+                    child: DateFormat('dd-MM-yyyy')
+                        .format(DateTime.parse(
+                            widget.meetingModel.startTime.toString()))
+                        .s(18)
+                        .c(Colors.white),
                   ),
                 ]),
                 TableRow(children: [
@@ -77,7 +86,20 @@ class _EditMeetingsState extends State<EditMeetings> {
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                    child: "waiting".s(18).c(Colors.white),
+                    child:
+                        "${widget.meetingModel.status}".s(18).c(Colors.white),
+                  ),
+                ]),
+                TableRow(children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                    child: "Duration".s(18).c(Colors.white),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: "${widget.meetingModel.duration} s"
+                        .s(18)
+                        .c(Colors.white),
                   ),
                 ]),
                 TableRow(children: [
@@ -86,26 +108,19 @@ class _EditMeetingsState extends State<EditMeetings> {
                     child: Padding(
                       padding:
                           EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                      child: "Duration".s(18).c(Colors.white),
-                    ),
-                  ),
-                  "40 s".s(18).c(Colors.white),
-                ]),
-                TableRow(children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                    child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                      child: "Join URL".s(18).c(Colors.white),
+                      child: InkWell(
+                          onTap: () async {
+                            final Uri _url =
+                                Uri.parse("${widget.meetingModel.joinUrl}");
+                            await launchUrl(_url);
+                          },
+                          child: "Join URL".s(18).c(Colors.white)),
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                     child:
-                        "https://chatgpt.com/c/6bf2847a-5682-44c3-b87b-b20924e76054"
-                            .s(18)
-                            .c(Colors.blue),
+                        "${widget.meetingModel.joinUrl}".s(18).c(Colors.blue),
                   ),
                 ]),
                 TableRow(children: [
@@ -120,9 +135,7 @@ class _EditMeetingsState extends State<EditMeetings> {
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                     child:
-                        "qwerty"
-                            .s(18)
-                            .c(Colors.white),
+                        "${widget.meetingModel.password}".s(18).c(Colors.white),
                   ),
                 ]),
               ],

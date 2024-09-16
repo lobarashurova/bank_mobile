@@ -1,10 +1,11 @@
-import 'package:bank_mobile/app/common/widgets/common_text_filed.dart';
+import 'package:bank_mobile/data/api_model/event_model/event_model.dart';
 import 'package:bank_mobile/extensions/text_extensions.dart';
 import 'package:bank_mobile/extensions/theme_extensions.dart';
-import 'package:bank_mobile/extensions/widget.dart';
+import 'package:bank_mobile/presentation/calendar/calendar_provider/calendar_privder.dart';
 import 'package:bank_mobile/utils/calendar_utils.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarMainPage extends StatefulWidget {
@@ -17,10 +18,9 @@ class CalendarMainPage extends StatefulWidget {
 class _CalendarMainPageState extends State<CalendarMainPage> {
   TextEditingController searchController = TextEditingController();
 
-  late final ValueNotifier<List<Event>> _selectedEvents;
+  late final ValueNotifier<List<EventModel>> _selectedEvents;
   CalendarFormat _calendarFormat = CalendarFormat.month;
-  RangeSelectionMode _rangeSelectionMode = RangeSelectionMode
-      .toggledOff;
+  RangeSelectionMode _rangeSelectionMode = RangeSelectionMode.toggledOff;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
   DateTime? _rangeStart;
@@ -29,9 +29,15 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
   @override
   void initState() {
     super.initState();
-
     _selectedDay = _focusedDay;
-    _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
+    Future.delayed(Duration(seconds: 0)).then((value){
+      context
+          .read<CalendarProvider>()
+          .getEvents(DateFormat('yyyy-MM-dd').format(DateTime.now()));
+    });
+
+    _selectedEvents =
+        ValueNotifier(context.read<CalendarProvider>().events ?? []);
   }
 
   @override
@@ -62,7 +68,7 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
         _rangeSelectionMode = RangeSelectionMode.toggledOff;
       });
 
-      _selectedEvents.value = _getEventsForDay(selectedDay);
+      // _selectedEvents.value = _getEventsForDay(selectedDay);
     }
   }
 
@@ -75,34 +81,25 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
       _rangeSelectionMode = RangeSelectionMode.toggledOn;
     });
 
-    // `start` or `end` could be null
-    if (start != null && end != null) {
-      _selectedEvents.value = _getEventsForRange(start, end);
-    } else if (start != null) {
-      _selectedEvents.value = _getEventsForDay(start);
-    } else if (end != null) {
-      _selectedEvents.value = _getEventsForDay(end);
-    }
+    // if (start != null && end != null) {
+    //   _selectedEvents.value = _getEventsForRange(start, end);
+    // } else if (start != null) {
+    //   _selectedEvents.value = _getEventsForDay(start);
+    // } else if (end != null) {
+    //   _selectedEvents.value = _getEventsForDay(end);
+    // }
   }
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<CalendarProvider>(context);
     return Scaffold(
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              CommonTextField(
-                prefixIcon: Icon(
-                  CupertinoIcons.search,
-                  color: context.colors.onPrimary,
-                ),
-                hint: "Search tasks...",
-                controller: searchController,
-              ),
-              16.kh,
-              TableCalendar<Event>(
+              TableCalendar<EventModel>(
                 headerStyle: HeaderStyle(
                     formatButtonVisible: false,
                     titleTextStyle: TextStyle(
@@ -130,22 +127,56 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
                 rangeEndDay: _rangeEnd,
                 calendarFormat: _calendarFormat,
                 rangeSelectionMode: _rangeSelectionMode,
-                eventLoader: _getEventsForDay,
+                eventLoader: (day) {
+                  return provider.events ?? [];
+                },
                 startingDayOfWeek: StartingDayOfWeek.monday,
                 calendarStyle: CalendarStyle(
                   outsideTextStyle: TextStyle(color: context.colors.onPrimary),
                   markerDecoration: BoxDecoration(
                       color: context.colors.onPrimary, shape: BoxShape.circle),
                   weekendDecoration: BoxDecoration(
-                      color: context.colors.lightBlue, shape: BoxShape.circle),
+                      color: context.colors.warningDark,
+                      shape: BoxShape.circle),
                   outsideDaysVisible: false,
                   weekendTextStyle: TextStyle(color: context.colors.onPrimary),
                   weekNumberTextStyle:
                       TextStyle(color: context.colors.onPrimary),
                   defaultTextStyle: TextStyle(color: context.colors.onPrimary),
                 ),
-                onDaySelected: _onDaySelected,
-                onRangeSelected: _onRangeSelected,
+                onDaySelected: (start, end) {
+                  if (!isSameDay(_selectedDay, start)) {
+                    setState(() {
+                      _selectedDay = start;
+                      _focusedDay = end;
+                      _rangeStart = null; // Important to clean those
+                      _rangeEnd = null;
+                      _rangeSelectionMode = RangeSelectionMode.toggledOff;
+                    });
+                    context
+                        .read<CalendarProvider>()
+                        .getEvents(DateFormat('yyyy-MM-dd').format(start));
+                    _selectedEvents.value = provider.events ?? [];
+                    _selectedEvents.value = provider.events ?? [];
+                  }
+                },
+                onRangeSelected: (start, end, focused) {
+                  setState(() {
+                    _selectedDay = null;
+                    _focusedDay = focused;
+                    _rangeStart = start;
+                    _rangeEnd = end;
+                    _rangeSelectionMode = RangeSelectionMode.toggledOn;
+                  });
+
+                  if (start != null && end != null) {
+                    _selectedEvents.value = provider.events ?? [];
+                  } else if (start != null) {
+                    _selectedEvents.value = provider.events ?? [];
+                  } else if (end != null) {
+                    _selectedEvents.value = provider.events ?? [];
+                  }
+                },
                 onFormatChanged: (format) {
                   if (_calendarFormat != format) {
                     setState(() {
@@ -159,7 +190,7 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
               ),
               const SizedBox(height: 8.0),
               Expanded(
-                child: ValueListenableBuilder<List<Event>>(
+                child: ValueListenableBuilder<List<EventModel>>(
                   valueListenable: _selectedEvents,
                   builder: (context, value, _) {
                     return ListView.builder(

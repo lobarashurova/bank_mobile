@@ -10,6 +10,7 @@ import 'package:bank_mobile/extensions/widget.dart';
 import 'package:bank_mobile/presentation/auth/login/login_page.dart';
 import 'package:bank_mobile/presentation/main/management/management_page.dart';
 import 'package:bank_mobile/presentation/main/profile/edit_profile.dart';
+import 'package:bank_mobile/presentation/main/profile/update_password_page.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -131,31 +132,55 @@ class _ProfilePageState extends State<ProfilePage> {
                       color: context.colors.display,
                       thickness: 1,
                     ),
-                    if (storage.role.call() != "Employee")
-                      ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        leading: const Icon(
-                          Icons.settings_outlined,
-                          color: Colors.white,
-                        ),
-                        title: "Employee management".s(16).c(Colors.white),
-                        trailing: const Icon(
-                          Icons.navigate_next_sharp,
-                          size: 30,
-                          color: Colors.white,
-                        ),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const ManagementPage()));
-                        },
+                    ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      leading: const Icon(
+                        Icons.password,
+                        color: Colors.white,
                       ),
+                      title: "Update password".s(16).c(Colors.white),
+                      trailing: const Icon(
+                        Icons.navigate_next_sharp,
+                        size: 30,
+                        color: Colors.white,
+                      ),
+                      onTap: () {
+                        context.push(const UpdatePasswordPage());
+                      },
+                    ),
                     Divider(
                       color: context.colors.display,
                       thickness: 1,
                     ),
+                    if (storage.role.call() != "Employee")
+                      Column(
+                        children: [
+                          ListTile(
+                            contentPadding: EdgeInsets.zero,
+                            leading: const Icon(
+                              Icons.settings_outlined,
+                              color: Colors.white,
+                            ),
+                            title: "Employee management".s(16).c(Colors.white),
+                            trailing: const Icon(
+                              Icons.navigate_next_sharp,
+                              size: 30,
+                              color: Colors.white,
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ManagementPage()));
+                            },
+                          ),
+                          Divider(
+                            color: context.colors.display,
+                            thickness: 1,
+                          ),
+                        ],
+                      ),
                     ListTile(
                       contentPadding: EdgeInsets.zero,
                       leading: const Icon(
@@ -169,7 +194,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         color: Colors.white,
                       ),
                     ),
-
                     Divider(
                       color: context.colors.display,
                       thickness: 1,

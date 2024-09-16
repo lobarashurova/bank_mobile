@@ -5,6 +5,7 @@ import 'package:bank_mobile/extensions/navigation_extensions.dart';
 import 'package:bank_mobile/extensions/text_extensions.dart';
 import 'package:bank_mobile/extensions/theme_extensions.dart';
 import 'package:bank_mobile/extensions/widget.dart';
+import 'package:bank_mobile/presentation/chat/chat_channnels/channel_page.dart';
 import 'package:bank_mobile/presentation/chat/chat_page.dart';
 import 'package:bank_mobile/presentation/main/ai/ai_chat_bot.dart';
 import 'package:bank_mobile/presentation/main/home/data/grid_item_data.dart';
@@ -325,7 +326,7 @@ class _HomePageState extends State<HomePage> {
                 bottom: 15,
                 child: FloatingActionButton(
                   onPressed: () {
-                    context.push(ChatPage());
+                    context.push(ChannelPage());
                   },
                   child: Icon(
                     Icons.chat,

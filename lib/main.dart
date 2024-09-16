@@ -3,10 +3,12 @@ import 'package:bank_mobile/data/storage/storage.dart';
 import 'package:bank_mobile/extensions/theme_extensions.dart';
 import 'package:bank_mobile/presentation/auth/login/login_page.dart';
 import 'package:bank_mobile/presentation/auth/login/provider/login_provider.dart';
+import 'package:bank_mobile/presentation/calendar/calendar_provider/calendar_privder.dart';
 import 'package:bank_mobile/presentation/main/ai/ai_provider.dart';
 import 'package:bank_mobile/presentation/main/home/providers/home_provider.dart';
 import 'package:bank_mobile/presentation/main/home/providers/news_notifier.dart';
 import 'package:bank_mobile/presentation/main/management/employee_providers/all_employees_provider.dart';
+import 'package:bank_mobile/presentation/main/meetings/provider/meetings_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +29,9 @@ Future<void> main() async {
     ChangeNotifierProvider(create: (context) => HomeProvider()),
     ChangeNotifierProvider(create: (context) => NewsProvider()),
     ChangeNotifierProvider(create: (context) => AiProvider()),
+    ChangeNotifierProvider(create: (context) => MeetingsProvider()),
+    ChangeNotifierProvider(create: (context) => CalendarProvider()),
+
     // ChangeNotifierProvider(create: (context) => HomeProvider()),
   ], child: const MyApp()));
 }
@@ -68,7 +73,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 
   void _showLockScreen() async {
-    await  navigatorKey.currentState?.push(
+    await navigatorKey.currentState?.push(
       MaterialPageRoute(builder: (context) => LockScreen()),
     );
     setState(() {

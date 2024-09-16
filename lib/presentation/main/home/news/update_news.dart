@@ -13,6 +13,7 @@ import 'package:bank_mobile/extensions/widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:html/parser.dart' as html_parser;
 import 'package:provider/provider.dart';
 
 import '../providers/news_notifier.dart';
@@ -95,84 +96,109 @@ class _UpdateNewsPageState extends State<UpdateNewsPage> {
                 ))
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            "${storage.role.call() == "Admin" ? "Input" : "View"} news title"
-                .s(14)
-                .w(600)
-                .c(context.colors.onPrimary),
-            8.kh,
-            CommonTextField(
-              controller: titleController,
-              enabled: storage.role.call() == "Admin",
-            ),
-            16.kh,
-            "${storage.role.call() == "Admin" ? "Input" : "View"} news description"
-                .s(14)
-                .w(600)
-                .c(context.colors.onPrimary),
-            8.kh,
-            CommonTextField(
-              controller: textController,
-              hint: "text...",
-              minLines: 6,
-              maxLines: 16,
-              enabled: storage.role.call() == "Admin",
-            ),
-            16.kh,
-            CachedNetworkImage(
-              imageUrl: widget.newsModel.imageUrl ?? "",
-              progressIndicatorBuilder: (context, url, downloadProgress) =>
-                 Assets.icons.verifyPic.image(width: MediaQuery.of(context).size.width, height: 200),
-              errorWidget: (context, url, error) => Icon(Icons.error),
-              imageBuilder: (context, imageProvider) => Container(
-                width: MediaQuery.of(context).size.width,
-                height: 200,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(16)),
-                  image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.cover,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              "${storage.role.call() == "Admin" ? "Input" : "View"} news title"
+                  .s(14)
+                  .w(600)
+                  .c(context.colors.onPrimary),
+              8.kh,
+              storage.role.call() == "Admin"
+                  ? CommonTextField(
+                      controller: titleController,
+                    )
+                  : Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                          color: context.colors.grey.withOpacity(0.4),
+                          borderRadius: BorderRadius.all(Radius.circular(16))),
+                      child: widget.newsModel.title
+                          .s(14)
+                          .w(400)
+                          .c(context.colors.onPrimary),
+                    ),
+              16.kh,
+              "${storage.role.call() == "Admin" ? "Input" : "View"} news description"
+                  .s(14)
+                  .w(600)
+                  .c(context.colors.onPrimary),
+              8.kh,
+              storage.role.call() == "Admin"
+                  ? CommonTextField(
+                      controller: textController,
+                      hint: "text...",
+                      minLines: 6,
+                      maxLines: 16,
+                    )
+                  : Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                          color: context.colors.grey.withOpacity(0.4),
+                          borderRadius: BorderRadius.all(Radius.circular(16))),
+                      child: "${html_parser.parse(widget.newsModel.text).body?.text}"
+                          .s(14)
+                          .w(400)
+                          .c(context.colors.onPrimary),
+                    ),
+              16.kh,
+              CachedNetworkImage(
+                imageUrl: widget.newsModel.imageUrl ?? "",
+                progressIndicatorBuilder: (context, url, downloadProgress) =>
+                    Assets.icons.verifyPic.image(
+                        width: MediaQuery.of(context).size.width, height: 200),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+                imageBuilder: (context, imageProvider) => Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 200,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(16)),
+                    image: DecorationImage(
+                      image: imageProvider,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
-            ),
-            Spacer(),
-            if (storage.role.call() == "Admin")
-              Consumer<NewsProvider>(
-                builder: (context, provider, child) {
-                  return CommonButton.elevated(
-                    loading: provider.isLoading,
-                    backgroundColor: context.colors.primary2,
-                    text: "Update",
-                    onPressed: () async {
-                      if (titleController.text.length > 6 &&
-                          textController.text.length > 50) {
-                        final success = await provider.updateNews(NewsModel(
-                            title: titleController.text,
-                            text: textController.text,
-                            id: widget.newsModel.id,
-                            imageUrl: widget.newsModel.imageUrl));
-                        if (success) {
-                          Navigator.pop(context);
+              32.kh,
+              if (storage.role.call() == "Admin")
+                Consumer<NewsProvider>(
+                  builder: (context, provider, child) {
+                    return CommonButton.elevated(
+                      loading: provider.isLoading,
+                      backgroundColor: context.colors.primary2,
+                      text: "Update",
+                      onPressed: () async {
+                        if (titleController.text.length > 6 &&
+                            textController.text.length > 50) {
+                          final success = await provider.updateNews(NewsModel(
+                              title: titleController.text,
+                              text: textController.text,
+                              id: widget.newsModel.id,
+                              imageUrl: widget.newsModel.imageUrl));
+                          if (success) {
+                            Navigator.pop(context);
+                          } else {
+                            context.showBeautifulSnackbar(
+                                message:
+                                    provider.errorMessage ?? "Updating failed");
+                          }
                         } else {
                           context.showBeautifulSnackbar(
                               message:
-                                  provider.errorMessage ?? "Updating failed");
+                                  "Title length should larger than 6, description 50");
                         }
-                      } else {
-                        context.showBeautifulSnackbar(
-                            message:
-                                "Title length should larger than 6, description 50");
-                      }
-                    },
-                  );
-                },
-              )
-          ],
+                      },
+                    );
+                  },
+                )
+            ],
+          ),
         ),
       ),
     );

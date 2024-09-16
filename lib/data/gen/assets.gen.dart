@@ -41,6 +41,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/home.svg
   SvgGenImage get home => const SvgGenImage('assets/icons/home.svg');
 
+  /// File path: assets/icons/logo.png
+  AssetGenImage get logo => const AssetGenImage('assets/icons/logo.png');
+
   /// File path: assets/icons/menu.svg
   SvgGenImage get menu => const SvgGenImage('assets/icons/menu.svg');
 
@@ -80,6 +83,7 @@ class $AssetsIconsGen {
         heartSelected,
         heartUnseleted,
         home,
+        logo,
         menu,
         profilePng,
         profileSvg,

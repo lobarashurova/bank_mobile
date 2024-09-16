@@ -27,4 +27,7 @@ class Storage {
   BaseStorage<bool>? get isDark => BaseStorage(_box, "isDark");
 
   BaseStorage<String> get role => BaseStorage(_box, 'role');
+  BaseStorage<String> get username => BaseStorage(_box, 'username');
+
+  BaseStorage<int> get userId => BaseStorage(_box, 'id');
 }
