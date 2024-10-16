@@ -3,11 +3,12 @@
 <p>
   This project is a comprehensive <strong>Bank System App</strong> that streamlines various administrative and communication tasks within a bank. It includes tools to manage employee meetings, working hours, real-time messaging, and incorporates modern AI capabilities. The system is designed to enhance productivity and simplify workflows.
 </p>
-![Apple iPhone 11 Pro Max Screenshot 4](https://github.com/user-attachments/assets/a93ce206-c04d-4493-b401-9efb18bd6fbd)
-![Apple iPhone 11 Pro Max Screenshot 3](https://github.com/user-attachments/assets/5c085b57-55ba-46e4-b528-deed7ecca66a)
-![Apple iPhone 11 Pro Max Screenshot 2](https://github.com/user-attachments/assets/2776203e-311e-4d80-8bc6-365893f5feca)
-![Apple iPhone 11 Pro Max Screenshot 1](https://github.com/user-attachments/assets/f3e0e9b9-ca0e-49e8-aecc-7b2f31092773)
-![Apple iPhone 11 Pro Max Screenshot 0](https://github.com/user-attachments/assets/e3a64080-1a40-4c0a-9f8d-35ce06187314)
+
+![Apple iPhone 11 Pro Max Screenshot 4](https://github.com/user-attachments/assets/b5b402c8-95ec-4771-80fd-cc48f71173b1)
+![Apple iPhone 11 Pro Max Screenshot 3](https://github.com/user-attachments/assets/fd5666bc-8783-452e-9c5f-df301f511607)
+![Apple iPhone 11 Pro Max Screenshot 2](https://github.com/user-attachments/assets/2ddf7848-621d-420a-bc24-283cdc6e9836)
+![Apple iPhone 11 Pro Max Screenshot 1](https://github.com/user-attachments/assets/37a32328-04b2-41a6-8cb4-87b578a25b79)
+![Apple iPhone 11 Pro Max Screenshot 0](https://github.com/user-attachments/assets/f16bdc85-0138-407b-badb-4cdfd78f033e)
 
 
 <h2>Key Features</h2>
